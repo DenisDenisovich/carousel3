@@ -60,3 +60,16 @@ function carousel3_autoload($class_name) {
         }
     }
 }
+
+// Инициализация плагина
+function carousel3_init() {
+    // Загрузка текстового домена для перевода
+    load_plugin_textdomain('carousel3', false, dirname(CAROUSEL3_PLUGIN_BASENAME) . '/languages');
+
+    // Инициализация основного класса
+    Carousel3\Init::get_instance();
+}
+add_action('plugins_loaded', 'carousel3_init');
+
+// Активация плагина
+register_activation_hook(__FILE__, array('Carousel3\Activator', 'activate'));
