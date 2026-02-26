@@ -29,7 +29,7 @@ class Init {
 
     public function init_plugin() {
         // Инициализация классов плагина
-        new Admin\Menu();
+        Menu::get_instance();
         //new Public\Assets();
         //new Public\Shortcode();
     }

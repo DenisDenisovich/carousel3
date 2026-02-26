@@ -11,23 +11,37 @@ if (!defined('ABSPATH')) {
 }
 
 class Menu {
-    public function __construct() {
-        add_action('init', array($this, 'create_menu'));
-    }
-    // Мамка всех менюшек и подменюшек
-    public static function create_menu() {
-        self::menu_carousel();
-        self::menu_slides();
+    private static $instance = null;
+
+    public static function get_instance() {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+        return self::$instance;
     }
 
-    public static function menu_carousel() {
+    private function __construct() {
+        $this->init_hooks();
+    }
+
+    private function init_hooks() {
+        add_action('init', array($this, 'create_menu'));
+        $this->create_menu();
+    }
+    // Мамка всех менюшек и подменюшек
+    public function create_menu() {
+        $this->menu_carousel();
+        $this->menu_slides();
+    }
+
+    public function menu_carousel() {
         register_post_type('my_carousel', [
             'labels' => [
-                'name' => 'Карусели',
-                'singular_name' => 'Карусель',
+                'name' => 'Карусели3',
+                'singular_name' => 'Карусель3',
                 'add_new' => 'Добавить новую',
-                'add_new_item' => 'Создание новой карусели',
-                'edit_item' => 'Редактирование карусели',
+                'add_new_item' => 'Создание новой карусели3',
+                'edit_item' => 'Редактирование карусели3',
             ],
             'public' => false,
             'show_ui' => true,
@@ -37,7 +51,7 @@ class Menu {
         ]);
     }
 
-    public static function menu_slides() {
+    public function menu_slides() {
         register_post_type('my_slide', [
             'labels' => [
                 'name' => 'Слайды',

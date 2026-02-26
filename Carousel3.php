@@ -72,4 +72,4 @@ function carousel3_init() {
 add_action('plugins_loaded', 'carousel3_init');
 
 // Активация плагина
-register_activation_hook(__FILE__, array('Carousel3\Activator', 'activate'));
+//register_activation_hook(__FILE__, array('Carousel3\Activator', 'activate'));
