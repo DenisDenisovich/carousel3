@@ -51,20 +51,21 @@ class Menu {
         ]);
     }
 
-    public function menu_slides() {
-        register_post_type('my_slide', [
+    public function menu_slides()
+    {
+        register_post_type('my_carousel_slide', [
             'labels' => [
                 'name' => 'Слайды',
                 'singular_name' => 'Слайд',
-                'add_new' => 'Добавить новый',
-                'add_new_item' => 'Создание нового слайда',
-                'edit_item' => 'Редактирование слайда',
             ],
             'public' => false,
-            'show_ui' => true,
-            'menu_icon' => 'dashicons-images-alt2',
-            'supports' => ['title', 'editor', 'thumbnail'],
-            'capability_type' => 'post',
+            'show_ui' => false, // скрываем из меню
+            'supports' => [
+                'title',
+                'editor',
+                'thumbnail',
+                'page-attributes' // включает menu_order
+            ],
         ]);
     }
 }
