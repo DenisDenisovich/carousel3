@@ -29,7 +29,8 @@ class Init {
 
     public function init_plugin() {
         // Инициализация классов плагина
-        Menu::get_instance();
+        Carousels::get_instance();
+        Sliders::get_instance();
         //new Public\Assets();
         //new Public\Shortcode();
     }

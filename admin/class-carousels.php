@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class Menu {
+class Carousels {
     private static $instance = null;
 
     public static function get_instance() {
@@ -25,13 +25,12 @@ class Menu {
     }
 
     private function init_hooks() {
-        add_action('init', array($this, 'create_menu'));
-        $this->create_menu();
+        add_action('init', array($this, 'create_menu_carousel'));
+        $this->create_menu_carousel();
     }
-    // Мамка всех менюшек и подменюшек
-    public function create_menu() {
+    
+    public function create_menu_carousel() {
         $this->menu_carousel();
-        $this->menu_slides();
     }
 
     public function menu_carousel() {
@@ -48,24 +47,6 @@ class Menu {
             'menu_icon' => 'dashicons-images-alt2',
             'supports' => ['title'],
             'capability_type' => 'post',
-        ]);
-    }
-
-    public function menu_slides()
-    {
-        register_post_type('my_carousel_slide', [
-            'labels' => [
-                'name' => 'Слайды',
-                'singular_name' => 'Слайд',
-            ],
-            'public' => false,
-            'show_ui' => false, // скрываем из меню
-            'supports' => [
-                'title',
-                'editor',
-                'thumbnail',
-                'page-attributes' // включает menu_order
-            ],
         ]);
     }
 }
