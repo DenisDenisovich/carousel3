@@ -11,6 +11,8 @@ if (!defined('ABSPATH')) {
 }
 
 class Sliders {
+    private const POST_TYPE_SLIDE = 'my_carousel_slides';
+
     private static $instance = null;
 
     public static function get_instance() {
@@ -25,15 +27,14 @@ class Sliders {
     }
 
     private function init_hooks() {
-        add_action('init', array($this, 'create_menu_slides'));
-        add_action('add_meta_boxes', array($this, 'add_carousel_slides_meta_box'));
-        // Установка родительской связи между слайдами и каруселью
-        add_action('add_meta_boxes', array($this, 'set_parent_for_new_slide'));
         $this->create_menu_slides();
+        add_action('add_meta_boxes', array($this, 'add_carousel_slides_meta_box'));
+        add_action('edit_form_after_title', array($this, 'render_parent_hidden_field'));
+        add_filter('wp_insert_post_data', array($this, 'set_parent_for_slide_on_save'), 10, 2);
     }
 
     public function create_menu_slides() {
-        register_post_type('my_carousel_slide', [
+        register_post_type(self::POST_TYPE_SLIDE, [
             'labels' => [
                 'name' => 'Слайды',
                 'singular_name' => 'Слайд',
@@ -67,7 +68,7 @@ class Sliders {
     public function render_carousel_slides($post) {
         
         $slides = get_children([
-            'post_type'   => 'my_carousel_slide',
+            'post_type'   => self::POST_TYPE_SLIDE,
             'post_parent' => $post->ID,
             'orderby'     => 'menu_order',
             'order'       => 'ASC'
@@ -95,21 +96,44 @@ class Sliders {
         echo '</table>';
 
         // Кнопка добавить
-        $add_link = admin_url('post-new.php?post_type=my_carousel_slide&parent=' . $post->ID);
+        $add_link = admin_url('post-new.php?post_type=' . self::POST_TYPE_SLIDE . '&parent=' . $post->ID);
         echo '<p><a class="button button-primary" href="' . esc_url($add_link) . '">Добавить слайд</a></p>';
     }
 
-    // Установка родительской связи между слайдами и каруселью при создании нового слайда
-    public function set_parent_for_new_slide() {
-        if (
-            isset($_GET['post_type']) &&
-            $_GET['post_type'] === 'my_carousel_slide' &&
-            isset($_GET['parent'])
-        ) {
-            add_filter('wp_insert_post_data', function ($data) {
-                $data['post_parent'] = intval($_GET['parent']);
-                return $data;
-            }, 10, 1);
+    public function render_parent_hidden_field($post) {
+        if (!isset($_GET['post_type']) || $_GET['post_type'] !== self::POST_TYPE_SLIDE) {
+            return;
         }
+
+        if (!isset($_GET['parent'])) {
+            return;
+        }
+
+        $parent_id = absint($_GET['parent']);
+        if ($parent_id <= 0) {
+            return;
+        }
+
+        echo '<input type="hidden" name="carousel_parent_id" value="' . esc_attr($parent_id) . '">';
+    }
+
+    public function set_parent_for_slide_on_save($data, $postarr) {
+        if (!isset($data['post_type']) || $data['post_type'] !== self::POST_TYPE_SLIDE) {
+            return $data;
+        }
+
+        $parent_id = 0;
+
+        if (isset($_POST['carousel_parent_id'])) {
+            $parent_id = absint($_POST['carousel_parent_id']);
+        } elseif (isset($postarr['post_parent'])) {
+            $parent_id = absint($postarr['post_parent']);
+        }
+
+        if ($parent_id > 0) {
+            $data['post_parent'] = $parent_id;
+        }
+
+        return $data;
     }
 }
