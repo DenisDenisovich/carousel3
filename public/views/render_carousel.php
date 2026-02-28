@@ -20,7 +20,7 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
 
                 if ($thumb_id) : // Проверяем, есть ли у слайда миниатюра
                     $attachment_image = wp_get_attachment_image(
-                        $thumb_id, // ПЕРЕДАЕМ ID КАРТИНКИ, А НЕ СЛАЙДА
+                        $thumb_id,
                         'large',
                         false,
                         [
@@ -31,6 +31,7 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
                 ?>
                     <div class="swiper-slide">
                         <?php echo $attachment_image; ?>
+                        <div class="description"><?php echo $slide->post_content; ?></div>
                     </div>
                 <?php endif; ?>
             <?php endforeach; ?>

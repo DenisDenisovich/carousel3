@@ -76,5 +76,5 @@ document.addEventListener("DOMContentLoaded", () => {
       autoHeight: false, // авто-высота по активному
       effect: "slide", // 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'cards'
     });
-  });*/
+  });
 });
