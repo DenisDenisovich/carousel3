@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 }
 
 class Sliders {
-    private const POST_TYPE_SLIDE = 'my_carousel_slides';
+    private const POST_TYPE_SLIDE = PLUGIN_NAME . '_slides';
 
     private static $instance = null;
 
@@ -58,7 +58,7 @@ class Sliders {
             'carousel_slides_meta_box',
             'Слайды карусели',
             array($this, 'render_carousel_slides'),
-            'my_carousel',
+            PLUGIN_NAME,
             'normal',
             'high'
         );

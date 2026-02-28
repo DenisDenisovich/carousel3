@@ -34,7 +34,7 @@ class Carousels {
     }
 
     public function menu_carousel() {
-        register_post_type('my_carousel', [
+        register_post_type(PLUGIN_NAME, [
             'labels' => [
                 'name' => 'Карусели3',
                 'singular_name' => 'Карусель3',

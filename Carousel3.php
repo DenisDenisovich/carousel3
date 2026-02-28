@@ -21,6 +21,9 @@ define('CAROUSEL3_VERSION', '1.0.0');
 define('CAROUSEL3_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CAROUSEL3_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('CAROUSEL3_PLUGIN_BASENAME', plugin_basename(__FILE__));
+define('PLUGIN_NAME', dirname(CAROUSEL3_PLUGIN_BASENAME));
+define('PLUGIN_KEY', '_' . PLUGIN_NAME);
+define('TEXT_DOMAIN', 'carousel3')
 
 // Автозагрузка классов плагина
 spl_autoload_register('carousel3_autoload');
