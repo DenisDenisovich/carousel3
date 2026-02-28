@@ -14,14 +14,14 @@ class Frontend {
     /**
      * Единственный экземпляр класса
      *
-     * @var PublicContent
+     * @var Frontend
      */
     private static $instance = null;
     
     /**
      * Получить экземпляр класса
      *
-     * @return PublicContent
+     * @return Frontend
      */
     public static function get_instance() {
         if (null === self::$instance) {
@@ -55,8 +55,28 @@ class Frontend {
         $atts = shortcode_atts(array(
             'id' => 0,
         ), $atts, PLUGIN_NAME);
+        error_log('PLUGIN_NAME: ' . PLUGIN_NAME);
         
         $carousel_id = absint($atts['id']);
+
+        $query = new WP_Query([
+            'post_type'      => 'carousel3_slides',
+            'post_parent'    => carousel_id,
+            'posts_per_page' => -1,
+            'post_status'    => 'any',
+            'no_found_rows'  => true,      // оптимизация
+            'cache_results'  => true,
+        ]);
+
+        // 1. Проверка на ошибку запроса
+        if ( is_wp_error( $query ) ) {
+            echo '<pre>WP_Error: ';
+            print_r( $query->get_error_messages() );
+            echo '</pre>';
+            return;
+        }
+
+        $slides = $query->posts;
         
         if (!$carousel_id) {
             return '<p>' . __('Укажите ID карусели', TEXT_DOMAIN) . '</p>';
@@ -75,20 +95,8 @@ class Frontend {
         }
         
         // Получение настроек
-        $autoplay = get_post_meta($carousel_id, PLUGIN_KEY . '_autoplay', true);
-        $autoplay_speed = get_post_meta($carousel_id, PLUGIN_KEY . '_autoplay_speed', true);
-        $show_arrows = get_post_meta($carousel_id, PLUGIN_KEY . '_show_arrows', true);
-        $show_dots = get_post_meta($carousel_id, PLUGIN_KEY . '_show_dots', true);
-        $show_scrollbar = get_post_meta($carousel_id, PLUGIN_KEY . '_show_scrollbar', true);
-        $height = get_post_meta($carousel_id, PLUGIN_KEY . '_height', true);
-        $animation_speed = get_post_meta($carousel_id, PLUGIN_KEY . '_animation_speed', true);
-        $spaces_between = get_post_meta($carousel_id, PLUGIN_KEY . '_spaces_between', true);
-
-        $slides_per_view = get_post_meta($carousel_id, PLUGIN_KEY . '_slides_per_view', true);
-        $slides = max(1, (int)$slides_per_view);
-        $slide_size = round(100 / $slides, 4);
-        $vw = round(100 / $slides, 4);
-        $sizes = "(max-width: 768px) 100vw, {$vw}vw";
+        // $autoplay = get_post_meta($carousel_id, PLUGIN_KEY . '_autoplay', true);
+        // ...
         
          // Значения по умолчанию
 
@@ -122,7 +130,7 @@ class Frontend {
         );
         
         ob_start();
-        include SWCAROUSEL_PLUGIN_DIR . 'public/views/carousel.php';
+        include SWCAROUSEL_PLUGIN_DIR . 'public/views/render_carousel.php';
         return ob_get_clean();
     }
 }

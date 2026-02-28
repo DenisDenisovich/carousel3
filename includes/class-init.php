@@ -31,6 +31,7 @@ class Init {
         // Инициализация классов плагина
         Carousels::get_instance();
         Sliders::get_instance();
+        Frontend::get_instance();
         //new Public\Assets();
         //new Public\Shortcode();
     }
