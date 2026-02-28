@@ -4,14 +4,52 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// 2. Проверка есть ли записи
-if ( ! $query->have_posts() ) {
-    echo '<pre>Слайды не найдены для parent ID: ' . esc_html($post_parent) . '</pre>';
-    return;
-}
+$slides_per_view = 1; //get_post_meta($carousel_id, '_swcarousel_slides_per_view', true); // Колличество видимых слайдов
+$slides = max(1, (int)$slides_per_view);
+$vw = round(100 / $slides, 4);
+$sizes = "(max-width: 768px) 100vw, {$vw}vw";
+
+?>
+<div class="carouselwp-carousel slider-container">
+    <div class="swiper carousel3" style="height:50vh;">
+        <div class="swiper-wrapper">
+            <?php foreach ($query->posts as $slide) : ?>
+                <?php
+                $slide_id = (int) $slide->ID; // ID записи типа "слайд"
+                $thumb_id = get_post_thumbnail_id($slide_id); // ID самой картинки (attachment)
+
+                if ($thumb_id) : // Проверяем, есть ли у слайда миниатюра
+                    $attachment_image = wp_get_attachment_image(
+                        $thumb_id, // ПЕРЕДАЕМ ID КАРТИНКИ, А НЕ СЛАЙДА
+                        'large',
+                        false,
+                        [
+                            'sizes' => $sizes, // Убедитесь, что переменная $sizes определена выше
+                            'class' => 'swiper-image'
+                        ]
+                    );
+                ?>
+                    <div class="swiper-slide">
+                        <?php echo $attachment_image; ?>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- Navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- Scrollbar -->
+        <div class="swiper-scrollbar"></div>
+    </div>
+</div>
+<?php
 
 // 3. Отладочный вывод
-echo '<pre>';
+/*echo '<pre>';
 echo 'Найдено: ' . (int) $query->found_posts . PHP_EOL;
 echo '------------------------' . PHP_EOL;
 
@@ -30,4 +68,4 @@ foreach ( $query->posts as $slide ) {
     echo '------------------------' . PHP_EOL;
 }
 
-echo '</pre>'
+echo '</pre>';*/

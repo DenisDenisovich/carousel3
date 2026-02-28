@@ -1,12 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const containers = document.querySelectorAll(".my-slider");
+  const containers = document.querySelectorAll(".carousel3");
   if (!containers.length) {
     console.warn("Swiper container not found");
     return;
   }
 
   containers.forEach((container) => {
-    console.log('autoplay: ', container.dataset.autoplay);
     const autoplayEnabled = container.dataset.autoplay === "1";
     const autoplaySpeed = parseInt(container.dataset.autoplaySpeed, 10) || 3000;
     const animationSpeed = parseInt(container.dataset.animationSpeed, 10) || 1600;
@@ -77,5 +76,5 @@ document.addEventListener("DOMContentLoaded", () => {
       autoHeight: false, // авто-высота по активному
       effect: "slide", // 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'cards'
     });
-  });
+  });*/
 });

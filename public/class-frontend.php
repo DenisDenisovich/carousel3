@@ -42,7 +42,7 @@ class Frontend {
      */
     private function init_hooks() {
         // Регистрация шорткода
-        add_shortcode('carausel3', array($this, 'carousel_shortcode'));
+        add_shortcode('carousel3', array($this, 'carousel_shortcode'));
     }
 
     /**
@@ -55,13 +55,23 @@ class Frontend {
         $atts = shortcode_atts(array(
             'id' => 0,
         ), $atts, PLUGIN_NAME);
-        error_log('PLUGIN_NAME: ' . PLUGIN_NAME);
+        
         
         $carousel_id = absint($atts['id']);
 
-        $query = new WP_Query([
+        if (!$carousel_id) {
+            return '<p>' . __('Укажите ID карусели', TEXT_DOMAIN) . '</p>';
+        }
+
+        $carousel = get_post($carousel_id);
+
+        if (!$carousel || $carousel->post_type !== PLUGIN_NAME) {
+            return '<p>' . __('Карусель не найдена', TEXT_DOMAIN) . '</p>';
+        }
+
+        $query = new \WP_Query([
             'post_type'      => 'carousel3_slides',
-            'post_parent'    => carousel_id,
+            'post_parent'    => $carousel_id,
             'posts_per_page' => -1,
             'post_status'    => 'any',
             'no_found_rows'  => true,      // оптимизация
@@ -76,23 +86,13 @@ class Frontend {
             return;
         }
 
+        // 2. Проверка есть ли записи
+        if ( ! $query->have_posts() ) {
+            echo '<pre>Слайды не найдены для parent ID: ' . esc_html($post_parent) . '</pre>';
+            return;
+        }
+
         $slides = $query->posts;
-        
-        if (!$carousel_id) {
-            return '<p>' . __('Укажите ID карусели', TEXT_DOMAIN) . '</p>';
-        }
-        
-        $carousel = get_post($carousel_id);
-        
-        if (!$carousel || $carousel->post_type !== PLUGIN_KEY) {
-            return '<p>' . __('Карусель не найдена', TEXT_DOMAIN) . '</p>';
-        }
-        
-        $images = get_post_meta($carousel_id, PLUGIN_KEY . '_images', true);
-        
-        if (empty($images) || !is_array($images)) {
-            return '<p>' . __('В карусели нет изображений', TEXT_DOMAIN) . '</p>';
-        }
         
         // Получение настроек
         // $autoplay = get_post_meta($carousel_id, PLUGIN_KEY . '_autoplay', true);
@@ -104,33 +104,33 @@ class Frontend {
         // Стили карусели плагина
         wp_enqueue_style(
             'swcarousel-swiper-css',
-            SWCAROUSEL_PLUGIN_URL . 'public/assets/styles/swiper-bundle.min.css',
+            CAROUSEL3_PLUGIN_URL . 'public/assets/styles/swiper-bundle.min.css',
             array(),
-            SWCAROUSEL_VERSION
+            CAROUSEL3_VERSION
         );
         wp_enqueue_style(
             'swcarousel-swiper-custom-css',
-            SWCAROUSEL_PLUGIN_URL . 'public/assets/styles/swiper-custom.css',
+            CAROUSEL3_PLUGIN_URL . 'public/assets/styles/swiper-custom.css',
             array('swcarousel-swiper-css'),
-            SWCAROUSEL_VERSION
+            CAROUSEL3_VERSION
         );
         wp_enqueue_script(
             'swcarousel-swiper-js',
-            SWCAROUSEL_PLUGIN_URL . 'public/assets/js/swiper-bundle.min.js',
+            CAROUSEL3_PLUGIN_URL . 'public/assets/js/swiper-bundle.min.js',
             array(),
             '9.4.1',
             true
         );
         wp_enqueue_script(
             'swcarousel-slider-config',
-            SWCAROUSEL_PLUGIN_URL . 'public/assets/js/swiper-config.js',
+            CAROUSEL3_PLUGIN_URL . 'public/assets/js/swiper-config.js',
             array('swcarousel-swiper-js'),
-            SWCAROUSEL_VERSION,
+            CAROUSEL3_VERSION,
             true
         );
         
         ob_start();
-        include SWCAROUSEL_PLUGIN_DIR . 'public/views/render_carousel.php';
+        include CAROUSEL3_PLUGIN_DIR . 'public/views/render_carousel.php';
         return ob_get_clean();
     }
 }
