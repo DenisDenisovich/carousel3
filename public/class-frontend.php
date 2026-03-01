@@ -103,15 +103,21 @@ class Frontend {
         // Подключаем библиотеку только там, где реально выводится шорткод
         // Стили карусели плагина
         wp_enqueue_style(
-            'swcarousel-swiper-css',
+            'carousel3-swiper-css',
             CAROUSEL3_PLUGIN_URL . 'public/assets/styles/swiper-bundle.min.css',
             array(),
             CAROUSEL3_VERSION
         );
         wp_enqueue_style(
-            'swcarousel-swiper-custom-css',
+            'carousel3-swiper-custom-css',
             CAROUSEL3_PLUGIN_URL . 'public/assets/styles/swiper-custom.css',
-            array('swcarousel-swiper-css'),
+            array('carousel3-swiper-css'),
+            CAROUSEL3_VERSION
+        );
+        wp_enqueue_style(
+            'carousel3-animate-css',
+            CAROUSEL3_PLUGIN_URL . 'public/assets/styles/animate.css',
+            array('carousel3-swiper-custom-css'),
             CAROUSEL3_VERSION
         );
         wp_enqueue_script(

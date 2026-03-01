@@ -11,6 +11,7 @@ if (!defined('ABSPATH')) {
 }
 
 class Carousels {
+    private const POST_TYPE_SLIDE = PLUGIN_NAME . '_slides';
     private static $instance = null;
 
     public static function get_instance() {
@@ -30,10 +31,58 @@ class Carousels {
 
         // Добавление мета-боксов
         add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
+        add_action('add_meta_boxes', array($this, 'add_carousel_slides_meta_box'));
     }
     
     public function create_menu_carousel() {
         $this->menu_carousel();
+    }
+
+    //Добавляем страницу управления слайдами внутри Карусели
+    public function add_carousel_slides_meta_box() {
+        add_meta_box(
+            'carousel_slides_meta_box',
+            'Слайды карусели',
+            array($this, 'render_carousel_slides'),
+            PLUGIN_NAME,
+            'normal',
+            'high'
+        );
+    }
+        // Таблица слайдов внутри карусели
+    public function render_carousel_slides($post) {
+        
+        $slides = get_children([
+            'post_type'   => self::POST_TYPE_SLIDE,
+            'post_parent' => $post->ID,
+            'orderby'     => 'menu_order',
+            'order'       => 'ASC'
+        ]);
+
+        echo '<table class="widefat striped">';
+        echo '<thead><tr><th>Заголовок</th><th>Порядок</th><th>Действия</th></tr></thead>';
+        echo '<tbody>';
+
+        if ($slides) {
+            foreach ($slides as $slide) {
+                echo '<tr>';
+                echo '<td>' . esc_html($slide->post_title) . '</td>';
+                echo '<td>' . intval($slide->menu_order) . '</td>';
+                echo '<td>';
+                echo '<a href="' . get_edit_post_link($slide->ID) . '">Редактировать</a>';
+                echo '</td>';
+                echo '</tr>';
+            }
+        } else {
+            echo '<tr><td colspan="3">Слайдов нет</td></tr>';
+        }
+
+        echo '</tbody>';
+        echo '</table>';
+
+        // Кнопка добавить
+        $add_link = admin_url('post-new.php?post_type=' . self::POST_TYPE_SLIDE . '&parent=' . $post->ID);
+        echo '<p><a class="button button-primary" href="' . esc_url($add_link) . '">Добавить слайд</a></p>';
     }
 
     public function menu_carousel() {
