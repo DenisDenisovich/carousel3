@@ -1,7 +1,26 @@
+.carousel3 {
+  height: 300px;
+}
+
+.carousel3 .swiper-wrapper {
+  height: 100%;
+}
+
+.carousel3 .swiper-slide {
+  height: 100%;
+  display: flex;
+}
+
 .swiper img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center center;
+}
+
+
+.carousel3 .swiper-slide {
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }

@@ -21,13 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
     var swiper = new Swiper(container, {
       direction: "horizontal", // 'horizontal' | 'vertical'
       loop: true, // бесконечный цикл
+      /*loop: false
+      rewind: true*/
       speed: animationSpeed, // скорость анимации (ms)
       slidesPerView: slidesPerView, // сколько слайдов видно
       spaceBetween: spacesBetween, // отступ между слайдами (px)
       watchSlidesProgress: true, // для динамических буллетов
 
       // Поведение перелистывания
-      centeredSlides: true, // центрировать активный
+      centeredSlides: false, // центрировать активный
       slidesPerGroup: 1, // листать по N слайдов
       initialSlide: 0, // стартовый индекс
 
