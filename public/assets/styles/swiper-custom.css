@@ -1,5 +1,6 @@
 .carousel3 {
   height: 300px;
+  position: relative;
 }
 
 .carousel3 .swiper-wrapper {
@@ -23,4 +24,33 @@
 .carousel3 .swiper-slide {
   transform: translateZ(0);
   backface-visibility: hidden;
+}
+
+.carousel3 .description {
+  position: absolute;
+  bottom: 20px;
+  left: 70px;
+  color: #fff;
+  font-size: 18px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+  width: 40%;
+  transition-duration: 1s;
+}
+
+.carousel3 .description > * {
+  color: #fff;
+}
+
+/* Элемент виден только когда анимируется */
+.ani-item.animate__animated {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Показываем, когда добавился класс анимации */
+.ani-item.animate__animated {
+    opacity: 1;
+    visibility: visible;
 }

@@ -31,7 +31,9 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
                 ?>
                     <div class="swiper-slide">
                         <?php echo $attachment_image; ?>
-                        <div class="description"><?php echo $slide->post_content; ?></div>
+                        <div class="ani-item description" style="opacity: 0;" data-ani="animate__fadeInUp">
+                            <?php echo $slide->post_content; ?>
+                        </div>
                     </div>
                 <?php endif; ?>
             <?php endforeach; ?>
