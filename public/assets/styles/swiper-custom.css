@@ -34,23 +34,31 @@
   font-size: 18px;
   background: rgba(0, 0, 0, 0.5);
   padding: 10px;
-  border-radius: 5px;
   width: 40%;
   transition-duration: 1s;
 }
 
 .carousel3 .description > * {
   color: #fff;
+  animation-timing-function: ease-out !important;
 }
 
 /* Элемент виден только когда анимируется */
 .ani-item.animate__animated {
-    opacity: 1 !important;
+    /*opacity: 1 !important;*/
     visibility: visible !important;
 }
 
 /* Показываем, когда добавился класс анимации */
 .ani-item.animate__animated {
-    opacity: 1;
+    /*opacity: 1;*/
     visibility: visible;
+}
+
+@media screen and (max-width: 900px) {
+  .carousel3 .description {
+    left: 0px;
+    width: calc(100% - 20px);
+    font-size: 14px;
+  }
 }

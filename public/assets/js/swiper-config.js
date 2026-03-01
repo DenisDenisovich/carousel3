@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   containers.forEach((container) => {
     const autoplayEnabled = container.dataset.autoplay === "1";
-    const autoplaySpeed = parseInt(container.dataset.autoplaySpeed, 10) || 3000;
-    const animationSpeed = parseInt(container.dataset.animationSpeed, 10) || 800;
+    const autoplaySpeed = parseInt(container.dataset.autoplaySpeed, 10) || 1000;
+    const animationSpeed = parseInt(container.dataset.animationSpeed, 10) || 1000;
     const slidesPerView = parseInt(container.dataset.slidesPerView, 10) || 1;
 
     // Навигация
@@ -55,12 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
         prevEl: prev,
       },
 
-      // Скроллбар (если есть в разметке)
-      /*scrollbar: {
-        el: container.querySelector('.swiper-scrollbar'),
-        draggable: true,
-      },*/
-
       // Управление с клавиатуры
       keyboard: {
         enabled: true,
@@ -73,10 +67,10 @@ document.addEventListener("DOMContentLoaded", () => {
       },
 
       // Дополнительно часто используемые:
-      grabCursor: true, // курсор «рука»
+      grabCursor: false, // курсор «рука»
       watchOverflow: true, // отключает, если мало слайдов
       autoHeight: false, // авто-высота по активному
-      effect: "slide", // 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'cards'
+      effect: "fade", // 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'cards'
 
 
       // Добавление классов анимации при смене слайда
@@ -89,18 +83,19 @@ document.addEventListener("DOMContentLoaded", () => {
             runAnimation(self);
           }, 50);
         },
-        slideChange: function () {
-          // Очищаем анимацию только у тех элементов, которые уже не видны
-          // (Swiper добавляет класс `swiper-slide-visible` к видимым слайдам).
-          const items = this.el.querySelectorAll('.swiper-slide:not(.swiper-slide-visible) .ani-item');
+        activeIndexChange: function () {
+          // Очищаем анимацию только у неактивных слайдов
+          const items = this.el.querySelectorAll('.swiper-slide:not(.swiper-slide-active) .ani-item');
           items.forEach(el => {
             const ani = el.getAttribute('data-ani');
             el.classList.remove('animate__animated', ani);
           });
-        },
-        slideChangeTransitionEnd: function () {
-          // Запускаем анимацию на новом активном слайде
-          runAnimation(this);
+          
+          // Запускаем анимацию на новом активном слайде с задержкой
+          const self = this;
+          setTimeout(function() {
+            runAnimation(self);
+          }, 50);
         },
       },
     });

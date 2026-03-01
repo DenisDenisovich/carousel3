@@ -31,8 +31,9 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
                 ?>
                     <div class="swiper-slide">
                         <?php echo $attachment_image; ?>
-                        <div class="ani-item description" style="opacity: 0;" data-ani="animate__fadeInUp">
+                        <div class="ani-item description" data-ani="animate__fadeInUp">
                             <?php echo $slide->post_content; ?>
+                            <a href="/shop/" style="display: block; padding: 10px 30px; color: #fff; background: rgba(0,0,0,0.5);">Go!</a>
                         </div>
                     </div>
                 <?php endif; ?>

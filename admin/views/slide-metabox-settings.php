@@ -14,12 +14,11 @@ $autoplay_speed = $autoplay_speed ? $autoplay_speed : '3000'; // УДАЛИТЬ 
 ?>
 
 <p>
-    <label for="carousel3_autoplay_speed">
+    <label for="carousel3_animation_type">
         <?php _e('Анимация', TEXT_DOMAIN); ?>
     </label>
-    <select id="carousel3_autoplay_speed" name="carousel3_autoplay_speed">
+    <select id="carousel3_animation_type" name="carousel3_animation_type">
         <?php
-        // Масив значень: 'значення' => 'текст для користувача'
         $animations = [
             ''                              => __('No animation', TEXT_DOMAIN),
             'animate__fadeIn'               => __('Fade In', TEXT_DOMAIN),
