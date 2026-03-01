@@ -43,8 +43,6 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
 
-        <!-- Scrollbar -->
-        <div class="swiper-scrollbar"></div>
     </div>
 </div>
 <?php
