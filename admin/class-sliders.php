@@ -29,7 +29,7 @@ class Sliders {
     private function init_hooks() {
         $this->create_menu_slides();
 
-        add_action('admin_title', [$this, 'add_back_button'], 10, 2); // Кнопка вверху
+        add_action('admin_title', [$this, 'add_back_button'], 10, 2); // TODO OPTIMIZE: Срабатывает на всех страницах админки, нужно только на странице редактирования слайда внутри карусели
         
         add_action('edit_form_after_title', array($this, 'render_parent_hidden_field'));
         add_filter('wp_insert_post_data', array($this, 'set_parent_for_slide_on_save'), 10, 2);
@@ -46,7 +46,7 @@ class Sliders {
             'public' => false,
             'show_ui' => true,
             'show_in_menu' => false, // Скрываем из основного меню
-            'hierarchical' => true, // КЛЮЧЕВОЕ
+            'hierarchical' => false, // КЛЮЧЕВОЕ
             'supports' => [
                 'title',
                 'editor',
@@ -70,6 +70,10 @@ class Sliders {
     public function add_back_button($admin_title, $title) {
 
         global $post;
+        $screen = get_current_screen();
+        if ($screen->id !== self::POST_TYPE_SLIDE) { 
+            return $admin_title;
+        }
 
         if ($post->post_type !== self::POST_TYPE_SLIDE) {
             return;
@@ -94,7 +98,6 @@ class Sliders {
             ],
             admin_url('post.php')
         );
-        error_log('Parent URL: ' . $parent_url); // Логируем URL для отладки
 
         add_action('admin_notices', function() use ($parent_url) {
             echo '<style>
