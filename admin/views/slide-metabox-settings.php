@@ -9,7 +9,7 @@ namespace Carousel3;
 if (!defined('ABSPATH')) {
     exit;
 }
-$autoplay_speed = get_post_meta($post->ID, '_swcarousel_autoplay_speed', true);
+$autoplay_speed = get_post_meta($post->ID, '_swcarousel_autoplay_speed', true); // УДАЛИТЬ ПОСЛЕ ОТЛАДКИ
 $autoplay_speed = $autoplay_speed ? $autoplay_speed : '3000'; // УДАЛИТЬ ПОСЛЕ ОТЛАДКИ
 ?>
 

@@ -28,6 +28,8 @@ class Sliders {
 
     private function init_hooks() {
         $this->create_menu_slides();
+
+        add_action('admin_title', [$this, 'add_back_button'], 10, 2); // Кнопка вверху
         
         add_action('edit_form_after_title', array($this, 'render_parent_hidden_field'));
         add_filter('wp_insert_post_data', array($this, 'set_parent_for_slide_on_save'), 10, 2);
@@ -65,7 +67,72 @@ class Sliders {
         );
     }
 
+    public function add_back_button($admin_title, $title) {
 
+        global $post;
+
+        if ($post->post_type !== self::POST_TYPE_SLIDE) {
+            return;
+        }
+
+        $parent_id = 0;
+
+        if (isset($_GET['parent'])) {
+            $parent_id = absint($_GET['parent']);
+        } elseif (!empty($post->post_parent)) {
+            $parent_id = absint($post->post_parent);
+        }
+
+        if ($parent_id <= 0) {
+            return;
+        }
+
+        $parent_url = add_query_arg(
+            [
+                'post'   => $parent_id,
+                'action' => 'edit',
+            ],
+            admin_url('post.php')
+        );
+        error_log('Parent URL: ' . $parent_url); // Логируем URL для отладки
+
+        add_action('admin_notices', function() use ($parent_url) {
+            echo '<style>
+                .wp-heading-inline {
+                    display:flex;
+                    align-items:center;
+                    gap:15px;
+                    a .page-title-action {
+                        margin-left: 20px;
+                    }
+                }
+            </style>';
+
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function(){
+                let heading = document.querySelector("h1.wp-heading-inline");
+                heading = heading || document.querySelector(".wrap h1"); // Альтернативный селектор для старых версий WP
+                layout = heading.closest(".wrap");
+                if (!layout) return;
+
+                const btn = document.createElement("a");
+                btn.style.display = "block";
+                btn.style.width = "300px";
+                btn.style.textAlign = "center";
+                btn.style.backgroundColor = "#0073aa";
+                btn.style.color = "#fff";
+                btn.style.padding = "6px 12px";
+                btn.href = ' . json_encode($parent_url) . ';
+                btn.className = "page-title-action";
+                btn.textContent = " ⬅ " + ' . json_encode(__('Back to carousel', TEXT_DOMAIN)) . ';
+
+                layout.prepend(btn);
+            });
+            </script>';
+        });
+
+        return $admin_title;
+    }
 
     public function render_slide_settings_meta_box($post) {
         // Выводим настройки слайда
@@ -73,18 +140,23 @@ class Sliders {
     }
 
     public function render_parent_hidden_field($post) {
-        if (!isset($_GET['post_type']) || $_GET['post_type'] !== self::POST_TYPE_SLIDE) {
+        if ($post->post_type !== self::POST_TYPE_SLIDE) {
             return;
         }
 
-        if (!isset($_GET['parent'])) {
-            return;
+        $parent_id = 0;
+
+        if (isset($_GET['parent'])) {
+            $parent_id = absint($_GET['parent']);
+        } elseif (!empty($post->post_parent)) {
+            $parent_id = absint($post->post_parent);
         }
 
-        $parent_id = absint($_GET['parent']);
         if ($parent_id <= 0) {
             return;
         }
+
+        $parent_url = get_edit_post_link($parent_id);
 
         echo '<input type="hidden" name="carousel_parent_id" value="' . esc_attr($parent_id) . '">';
     }
