@@ -97,7 +97,7 @@ class Frontend {
         $slides = $query->posts;
         
         // Получение настроек
-        // $autoplay = get_post_meta($carousel_id, PLUGIN_KEY . '_autoplay', true);
+        // $autoplay = get_post_meta($carousel_id, CAROUSEL3_PLUGIN_KEY . '_autoplay', true);
         // ...
         
          // Значения по умолчанию
