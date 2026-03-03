@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 
 class Sliders {
     // TODO: Добавить настройки слайда, например: ссылка, атрибуты для анимации и т.д. И вынести их в отдельный мета-бокс
-    private const POST_TYPE_SLIDE = PLUGIN_NAME . '_slides';
+    private const POST_TYPE_SLIDE = CAROUSEL3_PLUGIN_NAME . '_slides';
 
     private static $instance = null;
 
@@ -58,7 +58,7 @@ class Sliders {
 
     public function add_meta_boxes() {
         add_meta_box(
-            PLUGIN_NAME . '_slide_settings',
+            CAROUSEL3_PLUGIN_NAME . '_slide_settings',
             __('Настройки слайда', TEXT_DOMAIN),
             array($this, 'render_slide_settings_meta_box'),
             self::POST_TYPE_SLIDE,

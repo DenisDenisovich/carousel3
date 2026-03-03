@@ -49,10 +49,10 @@ class Admin {
             return;
         }
 
-        wp_enqueue_style(PLUGIN_NAME . '-css-admin', CAROUSEL3_PLUGIN_URL . 'admin/css/admin.css', array(), CAROUSEL3_VERSION);
+        wp_enqueue_style(CAROUSEL3_PLUGIN_NAME . '-css-admin', CAROUSEL3_PLUGIN_URL . 'admin/css/admin.css', array(), CAROUSEL3_VERSION);
 
-        wp_enqueue_script(PLUGIN_NAME . '-js-admin', CAROUSEL3_PLUGIN_URL . 'admin/js/admin.js', array('jquery'), CAROUSEL3_VERSION, true);
-        wp_localize_script(PLUGIN_NAME . '-js-admin', 'carousel3TableSort', [ // TODO: Если плагин будет тяжелеть, то нужно локализовать скрипт только на странице с таблицей
+        wp_enqueue_script(CAROUSEL3_PLUGIN_NAME . '-js-admin', CAROUSEL3_PLUGIN_URL . 'admin/js/admin.js', array('jquery'), CAROUSEL3_VERSION, true);
+        wp_localize_script(CAROUSEL3_PLUGIN_NAME . '-js-admin', 'carousel3TableSort', [ // TODO: Если плагин будет тяжелеть, то нужно локализовать скрипт только на странице с таблицей
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce'   => wp_create_nonce('carousel3_sort_slides_nonce'),
         ]);

@@ -54,7 +54,7 @@ class Frontend {
     public function carousel_shortcode($atts) {
         $atts = shortcode_atts(array(
             'id' => 0,
-        ), $atts, PLUGIN_NAME);
+        ), $atts, CAROUSEL3_PLUGIN_NAME);
         
         
         $carousel_id = absint($atts['id']);
@@ -65,12 +65,12 @@ class Frontend {
 
         $carousel = get_post($carousel_id);
 
-        if (!$carousel || $carousel->post_type !== PLUGIN_NAME) {
+        if (!$carousel || $carousel->post_type !== CAROUSEL3_PLUGIN_NAME) {
             return '<p>' . __('Карусель не найдена', TEXT_DOMAIN) . '</p>';
         }
 
         $query = new \WP_Query([
-            'post_type'      => 'carousel3_slides',
+            'post_type'      => CAROUSEL3_PLUGIN_NAME . '_slides',
             'post_parent'    => $carousel_id,
             'posts_per_page' => -1,
             'orderby'     => 'menu_order',
