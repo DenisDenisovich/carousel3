@@ -4,13 +4,23 @@ namespace Carousel3;
 
 /**
  * @package Carousel3
+ * @version 1.0.0
  */
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
-class Carousels {
+/**
+ * Класс Carousels
+ * 
+ * Класс складывает методы исключетельно для страницы карусели в админке(id carousel3 но это не точно).
+ * Страница карусели в админке показывает список слайдов и общие настройки карусели.
+ * Не очень хорошая практика ООП
+ * 
+ * @author Денис
+ */
+class Carousels { // TODO: Класс слишком привязан к странице
     private const POST_TYPE_SLIDE = PLUGIN_NAME . '_slides';
     private static $instance = null;
 
@@ -60,17 +70,18 @@ class Carousels {
         ]);
 
         echo '<table class="widefat striped">';
-        echo '<thead><tr><th>Заголовок</th><th>Порядок</th><th>Действия</th></tr></thead>';
-        echo '<tbody>';
+        echo '<thead><tr><th>Заголовок</th><th>Порядок</th><th>Действия</th><th></th></tr></thead>';
+        echo '<tbody id="carousel3-sortable">';
 
         if ($slides) {
             foreach ($slides as $slide) {
-                echo '<tr>';
+                echo '<tr data-id="' . intval($slide->ID) . '">';
                 echo '<td>' . esc_html($slide->post_title) . '</td>';
                 echo '<td>' . intval($slide->menu_order) . '</td>';
                 echo '<td>';
                 echo '<a href="' . get_edit_post_link($slide->ID) . '">Редактировать</a>';
                 echo '</td>';
+                echo '<td class="drag-handle" style="cursor:move;">☰</td>';
                 echo '</tr>';
             }
         } else {
