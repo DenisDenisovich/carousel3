@@ -39,6 +39,8 @@ class Carousels { // TODO: Класс слишком привязан к стр�
         add_action('init', array($this, 'create_menu_carousel'));
         $this->create_menu_carousel();
 
+        add_action('wp_ajax_carousel3_update_order', array($this, 'update_slide_order'));
+
         // Добавление мета-боксов
         add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
         add_action('add_meta_boxes', array($this, 'add_carousel_slides_meta_box'));
@@ -94,6 +96,29 @@ class Carousels { // TODO: Класс слишком привязан к стр�
         // Кнопка добавить
         $add_link = admin_url('post-new.php?post_type=' . self::POST_TYPE_SLIDE . '&parent=' . $post->ID);
         echo '<p><a class="button button-primary" href="' . esc_url($add_link) . '">Добавить слайд</a></p>';
+    }
+
+    // Меняем позиции слайдов
+    public function update_slide_order() {
+        check_ajax_referer('carousel3_sort_slides_nonce', 'nonce');
+        if (!current_user_can('edit_posts')) {
+            wp_send_json_error('Недостаточно прав');
+            return;
+        }
+
+        $order = $_POST['order'] ?? [];
+
+        foreach ($order as $item) {
+            $post_id = intval($item['id']);
+            $menu_order = intval($item['menu_order']);
+            
+            wp_update_post([
+                'ID' => $post_id,
+                'menu_order' => $menu_order
+            ]);
+        }
+
+        wp_send_json_success('Порядок обновлен');
     }
 
     public function menu_carousel() {

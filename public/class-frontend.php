@@ -73,9 +73,11 @@ class Frontend {
             'post_type'      => 'carousel3_slides',
             'post_parent'    => $carousel_id,
             'posts_per_page' => -1,
+            'orderby'     => 'menu_order',
+            'order'   => 'ASC',
             'post_status'    => 'any',
             'no_found_rows'  => true,      // оптимизация
-            'cache_results'  => true,
+            'cache_results'          => true,
         ]);
 
         // 1. Проверка на ошибку запроса

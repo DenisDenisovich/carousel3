@@ -13,11 +13,16 @@ if (!defined('ABSPATH')) {
 class Admin {
     private static $instance = null;
 
-    public static $carousel3_pages = array(
+    public static $carousel3_pages = [
         'edit-carousel3',
         'carousel3',
         'carousel3_slides',
-    );
+    ];
+
+    public static $allowed_hooks = [
+        'post.php', 
+        'edit.php'
+    ];
 
     private function __construct() {
         $this->init_hooks();
@@ -39,15 +44,17 @@ class Admin {
     }
 
     public function enqueue_admin_assets($hook) {
-        if ($hook !== 'post.php') {
+        $screen = get_current_screen();
+        if (empty($hook) || !in_array($hook, self::$allowed_hooks) || empty($screen) || !in_array($screen->id, self::$carousel3_pages)) {
             return;
         }
 
-        $screen = get_current_screen();
+        wp_enqueue_style(PLUGIN_NAME . '-css-admin', CAROUSEL3_PLUGIN_URL . 'admin/css/admin.css', array(), CAROUSEL3_VERSION);
 
-        error_log('Current screen ID: ' . $screen->id); // Отладочный вывод
-
-        wp_enqueue_style(PLUGIN_NAME . '-admin', CAROUSEL3_PLUGIN_URL . 'admin/css/admin.css', array(), CAROUSEL3_VERSION);
-        wp_enqueue_script(PLUGIN_NAME . '-admin', CAROUSEL3_PLUGIN_URL . 'admin/js/admin.js', array('jquery'), CAROUSEL3_VERSION, true);
+        wp_enqueue_script(PLUGIN_NAME . '-js-admin', CAROUSEL3_PLUGIN_URL . 'admin/js/admin.js', array('jquery'), CAROUSEL3_VERSION, true);
+        wp_localize_script(PLUGIN_NAME . '-js-admin', 'carousel3TableSort', [ // TODO: Если плагин будет тяжелеть, то нужно локализовать скрипт только на странице с таблицей
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce'   => wp_create_nonce('carousel3_sort_slides_nonce'),
+        ]);
     }
 }

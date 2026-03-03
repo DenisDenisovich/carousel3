@@ -51,7 +51,6 @@ class Sliders {
                 'title',
                 'editor',
                 'thumbnail',
-                'page-attributes'
             ],
         ]);
     }
