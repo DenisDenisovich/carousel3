@@ -11,6 +11,7 @@ if (!defined('ABSPATH')) {
 }
 
 class Sliders {
+    // TODO: Добавить настройки слайда, например: ссылка, атрибуты для анимации и т.д. И вынести их в отдельный мета-бокс
     private const POST_TYPE_SLIDE = PLUGIN_NAME . '_slides';
 
     private static $instance = null;
