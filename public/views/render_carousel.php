@@ -34,6 +34,8 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
     >
         <div class="swiper-wrapper">
             <?php foreach ($query->posts as $slide) : 
+            $animation_type = get_post_meta($slide->ID, CAROUSEL3_PLUGIN_KEY . '_animation_type', true);
+            $animation_type = $animation_type ? $animation_type : 'animate__fadeInUp';
                 ?>
                 <?php
                 $slide_id = (int) $slide->ID;
@@ -52,7 +54,8 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
                 ?>
                     <div class="swiper-slide">
                         <?php echo $attachment_image; ?>
-                        <div class="ani-item description" data-ani="animate__fadeInUp">
+                        <div class="ani-item description" data-ani="<?php echo esc_attr($animation_type); ?>">
+                            <h2><?php echo $slide->post_title; ?></h2>
                             <?php echo $slide->post_content; ?>
                         </div>
                     </div>
