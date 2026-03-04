@@ -22,6 +22,15 @@ if (!defined('ABSPATH')) {
         <?php endif; ?>
     </div>
     <p>
+        <label for="<?php echo CAROUSEL3_PLUGIN_KEY; ?>_effect">
+            <?php _e('Тип анимации', TEXT_DOMAIN); ?>
+        </label>
+        <select id="<?php echo CAROUSEL3_PLUGIN_KEY; ?>_effect" name="<?php echo CAROUSEL3_PLUGIN_KEY; ?>_effect">
+            <option value="slide" <?php selected($effect, 'slide'); ?>><?php _e('Скользящий', TEXT_DOMAIN); ?></option>
+            <option value="fade" <?php selected($effect, 'fade'); ?>><?php _e('Исчезновение', TEXT_DOMAIN); ?></option>
+        </select>
+    </p>
+    <p>
         <label>
             <input type="checkbox" name="<?php echo CAROUSEL3_PLUGIN_KEY; ?>_show_arrows" value="1" <?php checked($show_arrows, '1'); ?>>
             <?php _e('Показывать стрелки навигации', TEXT_DOMAIN); ?>

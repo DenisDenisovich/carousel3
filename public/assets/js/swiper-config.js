@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const autoplaySpeed = parseInt(container.dataset.autoplaySpeed, 10) || 1000;
     const animationSpeed = parseInt(container.dataset.animationSpeed, 10) || 1000;
     const slidesPerView = parseInt(container.dataset.slidesPerView, 10) || 1;
+    const effect = container.dataset.effect || 'slide';
 
     // Навигация
     const next = container.querySelector('.swiper-button-next');
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
       grabCursor: false, // курсор «рука»
       watchOverflow: true, // отключает, если мало слайдов
       autoHeight: false, // авто-высота по активному
-      effect: "fade", // 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'cards'
+      effect: effect, // 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'cards'
 
 
       // Добавление классов анимации при смене слайда

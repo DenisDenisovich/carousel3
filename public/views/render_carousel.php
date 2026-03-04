@@ -4,19 +4,39 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$slides_per_view = 1; //get_post_meta($carousel_id, '_swcarousel_slides_per_view', true); // Колличество видимых слайдов
+$autoplay = '1';
+$autoplay_speed = '3000';
+$animation_speed = '600';
+$show_arrows = '1';
+$show_dots = '1';
+$show_scrollbar = '0';
+$spaces_between = '0';
+$slides_per_view = '1';
 $slides = max(1, (int)$slides_per_view);
 $vw = round(100 / $slides, 4);
 $sizes = "(max-width: 768px) 100vw, {$vw}vw";
 
 ?>
 <div class="carouselwp-carousel slider-container">
-    <div class="swiper carousel3" style="height:50vh;">
+    <div class="swiper carousel3" 
+        <?php echo ($height !== 'none') ? 'style="height:' . esc_attr($height) . ';"' : ''; ?>
+        data-carousel-id="<?php echo esc_attr($carousel_id); ?>"
+        data-autoplay="<?php echo esc_attr($autoplay); ?>"
+        data-autoplay-speed="<?php echo esc_attr($autoplay_speed); ?>"
+        data-animation-speed="<?php echo esc_attr($animation_speed); ?>"
+        data-show-arrows="<?php echo esc_attr($show_arrows); ?>"
+        data-show-dots="<?php echo esc_attr($show_dots); ?>"
+        data-show-scrollbar="<?php echo esc_attr($show_scrollbar); ?>"
+        data-height="<?php echo esc_attr($height); ?>"
+        data-slides-per-view="<?php echo esc_attr($slides_per_view); ?>"
+        data-spaces-between="<?php echo esc_attr($spaces_between); ?>"
+        data-effect="<?php echo esc_attr($effect); ?>"
+    >
         <div class="swiper-wrapper">
             <?php foreach ($query->posts as $slide) : 
                 ?>
                 <?php
-                $slide_id = (int) $slide->ID; // ID записи типа "слайд"
+                $slide_id = (int) $slide->ID;
                 $thumb_id = get_post_thumbnail_id($slide_id); // ID самой картинки (attachment)
 
                 if ($thumb_id) : // Проверяем, есть ли у слайда миниатюра
@@ -25,7 +45,7 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
                         'large',
                         false,
                         [
-                            'sizes' => $sizes, // Убедитесь, что переменная $sizes определена выше
+                            'sizes' => $sizes,
                             'class' => 'swiper-image'
                         ]
                     );
@@ -48,26 +68,3 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
 
     </div>
 </div>
-<?php
-
-// 3. Отладочный вывод
-/*echo '<pre>';
-echo 'Найдено: ' . (int) $query->found_posts . PHP_EOL;
-echo '------------------------' . PHP_EOL;
-
-foreach ( $query->posts as $slide ) {
-
-    // Проверка объекта
-    if ( ! $slide instanceof WP_Post ) {
-        continue;
-    }
-
-    echo 'ID: ' . (int) $slide->ID . PHP_EOL;
-    echo 'Title: ' . esc_html( $slide->post_title ) . PHP_EOL;
-    echo 'Status: ' . esc_html( $slide->post_status ) . PHP_EOL;
-    echo 'Menu order: ' . (int) $slide->menu_order . PHP_EOL;
-    echo 'Date: ' . esc_html( $slide->post_date ) . PHP_EOL;
-    echo '------------------------' . PHP_EOL;
-}
-
-echo '</pre>';*/

@@ -14,10 +14,10 @@ $autoplay_speed = $autoplay_speed ? $autoplay_speed : '3000'; // УДАЛИТЬ 
 ?>
 
 <p>
-    <label for="carousel3_animation_type">
+    <label for="<?php echo CAROUSEL3_PLUGIN_KEY; ?>_animation_type">
         <?php _e('Анимация', TEXT_DOMAIN); ?>
     </label>
-    <select id="carousel3_animation_type" name="carousel3_animation_type">
+    <select id="<?php echo CAROUSEL3_PLUGIN_KEY; ?>_animation_type" name="<?php echo CAROUSEL3_PLUGIN_KEY; ?>_animation_type">
         <?php
         $animations = [
             ''                              => __('No animation', TEXT_DOMAIN),
@@ -35,7 +35,7 @@ $autoplay_speed = $autoplay_speed ? $autoplay_speed : '3000'; // УДАЛИТЬ 
         ];
 
         foreach ( $animations as $value => $label ) : ?>
-            <option value="<?php echo esc_attr( $value ); ?>" <?php selected( $autoplay_speed, $value ); ?>>
+            <option value="<?php echo esc_attr( $value ); ?>" <?php selected( $animation_type, $value ); ?>>
                 <?php echo esc_html( $label ); ?>
             </option>
         <?php endforeach; ?>

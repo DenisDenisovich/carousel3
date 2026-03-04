@@ -160,14 +160,17 @@ class Carousels { // TODO: Класс слишком привязан к стр�
             $shortcode = sprintf('[%s id="%d"]', CAROUSEL3_PLUGIN_NAME, (int) $post->ID);
         }
 
+        $carousel_id = $post->ID;
         $show_arrows = get_post_meta($post->ID, CAROUSEL3_PLUGIN_KEY . '_show_arrows', true);
         $show_dots = get_post_meta($post->ID, CAROUSEL3_PLUGIN_KEY . '_show_dots', true);
         $height = get_post_meta($post->ID, CAROUSEL3_PLUGIN_KEY . '_height', true);
+        $effect = get_post_meta($post->ID, CAROUSEL3_PLUGIN_KEY . '_effect', true);
 
         // Значения по умолчанию
         $show_arrows = $show_arrows !== '' ? $show_arrows : '1';
         $show_dots = $show_dots !== '' ? $show_dots : '1';
         $height = $height ? $height : 'none';
+        $effect = $effect ? $effect : 'slide';
 
         include CAROUSEL3_PLUGIN_DIR . 'admin/views/carousel-metabox-settings.php';
     }
@@ -203,6 +206,11 @@ class Carousels { // TODO: Класс слишком привязан к стр�
         if (isset($_POST[CAROUSEL3_PLUGIN_KEY . '_height'])) {
             $height = sanitize_text_field($_POST[CAROUSEL3_PLUGIN_KEY . '_height']);
             update_post_meta($post_id, CAROUSEL3_PLUGIN_KEY . '_height', $height);
+        }
+
+        if (isset($_POST[CAROUSEL3_PLUGIN_KEY . '_effect'])) {
+            $effect = sanitize_text_field($_POST[CAROUSEL3_PLUGIN_KEY . '_effect']);
+            update_post_meta($post_id, CAROUSEL3_PLUGIN_KEY . '_effect', $effect);
         }
     }
 }
