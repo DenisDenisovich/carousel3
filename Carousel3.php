@@ -1,11 +1,8 @@
 <?php
 /**
  * Plugin Name: Carousel3
- * Plugin URI: https://your-site.com/
- * Description: Описание вашего плагина
+ * Description: Плагин для создания карусели с анимированным текстом.
  * Version: 1.0.0
- * Author: musite.xyz
- * Author URI: https://example.com
  * License: GPL2
  * Text Domain: carousel3
  * Domain Path: /languages

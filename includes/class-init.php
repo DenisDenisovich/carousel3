@@ -31,7 +31,5 @@ class Init {
         // Инициализация классов плагина
         Admin::get_instance();
         Frontend::get_instance();
-        //new Public\Assets();
-        //new Public\Shortcode();
     }
 }

@@ -45,13 +45,11 @@
 
 /* Элемент виден только когда анимируется */
 .ani-item.animate__animated {
-    /*opacity: 1 !important;*/
     visibility: visible !important;
 }
 
 /* Показываем, когда добавился класс анимации */
 .ani-item.animate__animated {
-    /*opacity: 1;*/
     visibility: visible;
 }
 
