@@ -34,14 +34,13 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
     >
         <div class="swiper-wrapper">
             <?php foreach ($query->posts as $slide) : 
-            $animation_type = get_post_meta($slide->ID, CAROUSEL3_PLUGIN_KEY . '_animation_type', true);
-            $animation_type = $animation_type ? $animation_type : 'animate__fadeInUp';
-                ?>
-                <?php
-                $slide_id = (int) $slide->ID;
-                $thumb_id = get_post_thumbnail_id($slide_id); // ID самой картинки (attachment)
+                $animation_type = get_post_meta($slide->ID, CAROUSEL3_PLUGIN_KEY . '_animation_type', true);
+                $animation_type = $animation_type ? $animation_type : 'animate__fadeInUp';
 
-                if ($thumb_id) : // Проверяем, есть ли у слайда миниатюра
+                $slide_id = (int) $slide->ID;
+                $thumb_id = get_post_thumbnail_id($slide_id);
+
+                if ($thumb_id) :
                     $attachment_image = wp_get_attachment_image(
                         $thumb_id,
                         'large',
@@ -51,15 +50,16 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
                             'class' => 'swiper-image'
                         ]
                     );
-                ?>
-                    <div class="swiper-slide">
-                        <?php echo $attachment_image; ?>
-                        <div class="ani-item description" data-ani="<?php echo esc_attr($animation_type); ?>">
-                            <h2><?php echo $slide->post_title; ?></h2>
-                            <?php echo $slide->post_content; ?>
-                        </div>
+            ?>
+                <div class="swiper-slide">
+                    <?php echo wp_kses_post( $attachment_image ); ?>
+
+                    <div class="ani-item description" data-ani="<?php echo esc_attr( $animation_type ); ?>">
+                        <h2><?php echo esc_html( $slide->post_title ); ?></h2>
+                        <?php echo apply_filters( 'the_content', $slide->post_content ); ?>
                     </div>
-                <?php endif; ?>
+                </div>
+            <?php endif; ?>
             <?php endforeach; ?>
         </div>
         <!-- Pagination -->
