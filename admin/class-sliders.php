@@ -61,7 +61,7 @@ class Sliders {
     public function add_meta_boxes() {
         add_meta_box(
             CAROUSEL3_PLUGIN_NAME . '_slide_settings',
-            __('Настройки слайда', TEXT_DOMAIN),
+            __('Настройки слайда', 'carousel3'),
             array($this, 'render_slide_settings_meta_box'),
             self::POST_TYPE_SLIDE,
             'side',
@@ -129,7 +129,7 @@ class Sliders {
                 btn.style.padding = "6px 12px";
                 btn.href = ' . json_encode($parent_url) . ';
                 btn.className = "page-title-action";
-                btn.textContent = " ⬅ " + ' . json_encode(__('Back to carousel', TEXT_DOMAIN)) . ';
+                btn.textContent = " ⬅ " + ' . json_encode(__('Back to carousel', 'carousel3')) . ';
 
                 layout.prepend(btn);
             });
@@ -142,7 +142,7 @@ class Sliders {
     public function render_slide_settings_meta_box($post) {
         wp_nonce_field('carousel3_save_data', 'carousel3_slide_nonce');
         if (!isset($post->ID)) {
-            echo '<p>' . __('Сохраните слайд, чтобы увидеть настройки.', TEXT_DOMAIN) . '</p>';
+            echo '<p>' . __('Сохраните слайд, чтобы увидеть настройки.', 'carousel3') . '</p>';
             return;
         }
 

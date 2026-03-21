@@ -60,13 +60,13 @@ class Frontend {
         $carousel_id = absint($atts['id']);
 
         if (!$carousel_id) {
-            return '<p>' . __('Укажите ID карусели', TEXT_DOMAIN) . '</p>';
+            return '<p>' . __('Укажите ID карусели', 'carousel3') . '</p>';
         }
 
         $carousel = get_post($carousel_id);
 
         if (!$carousel || $carousel->post_type !== CAROUSEL3_PLUGIN_NAME) {
-            return '<p>' . __('Карусель не найдена', TEXT_DOMAIN) . '</p>';
+            return '<p>' . __('Карусель не найдена', 'carousel3') . '</p>';
         }
 
         $query = new \WP_Query([

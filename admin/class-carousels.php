@@ -151,7 +151,7 @@ class Carousels {
 
         add_meta_box(
             CAROUSEL3_PLUGIN_KEY . '_settings',
-            __('Настройки карусели', TEXT_DOMAIN),
+            __('Настройки карусели', 'carousel3'),
             array($this, 'render_settings_metabox'),
             CAROUSEL3_PLUGIN_NAME,
             'side',
