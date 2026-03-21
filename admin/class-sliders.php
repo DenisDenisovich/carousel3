@@ -11,7 +11,6 @@ if (!defined('ABSPATH')) {
 }
 
 class Sliders {
-    // TODO: Добавить настройки слайда, например: ссылка, атрибуты для анимации и т.д. И вынести их в отдельный мета-бокс
     private const POST_TYPE_SLIDE = CAROUSEL3_PLUGIN_NAME . '_slides';
 
     private static $instance = null;
@@ -30,7 +29,7 @@ class Sliders {
     private function init_hooks() {
         $this->create_menu_slides();
 
-        add_action('admin_title', [$this, 'add_back_button'], 10, 2); // TODO OPTIMIZE: Срабатывает на всех страницах админки, нужно только на странице редактирования слайда внутри карусели
+        add_action('admin_title', [$this, 'add_back_button'], 10, 2);
         
         add_action('edit_form_after_title', array($this, 'render_parent_hidden_field'));
         add_filter('wp_insert_post_data', array($this, 'set_parent_for_slide_on_save'), 10, 2);

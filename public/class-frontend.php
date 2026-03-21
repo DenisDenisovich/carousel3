@@ -80,17 +80,13 @@ class Frontend {
             'cache_results'          => true,
         ]);
 
-        // 1. Проверка на ошибку запроса
+        // Проверка на ошибку запроса
         if ( is_wp_error( $query ) ) {
-            echo '<pre>WP_Error: ';
-            print_r( $query->get_error_messages() );
-            echo '</pre>';
             return;
         }
 
-        // 2. Проверка есть ли записи
+        // Проверка есть ли записи
         if ( ! $query->have_posts() ) {
-            echo '<pre>Слайды не найдены для parent ID: ' . esc_html($post_parent) . '</pre>';
             return;
         }
 
