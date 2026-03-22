@@ -97,21 +97,27 @@ class Carousels {
             return;
         }
 
-        $order = isset($_POST['order']) ? wp_unslash($_POST['order']) : [];
+        if (isset($_POST['order']) && is_array($_POST['order'])) {
+            $raw_order = isset($_POST['order']) && is_array($_POST['order'])
+                ? wp_unslash($_POST['order']) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+                : [];
 
-        if (empty($order) || !is_array($order)) {
-            wp_send_json_error('Некорректные данные');
-            return;
-        }
+            foreach ($raw_order as $item) {
 
-        foreach ($order as $item) {
-            $post_id = intval($item['id'] ?? 0);
-            $menu_order = intval($item['menu_order'] ?? 0);
+                if (!is_array($item)) {
+                    continue;
+                }
 
-            if ($post_id > 0) {
+                $id = isset($item['id']) ? absint($item['id']) : 0;
+                $menu_order = isset($item['menu_order']) ? absint($item['menu_order']) : 0;
+
+                if ($id <= 0) {
+                    continue;
+                }
+
                 wp_update_post([
-                    'ID' => $post_id,
-                    'menu_order' => $menu_order
+                    'ID' => $id,
+                    'menu_order' => $menu_order,
                 ]);
             }
         }
