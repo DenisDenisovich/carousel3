@@ -139,8 +139,7 @@ class Frontend {
             true
         );
         
-        ob_start();
-        include CAROUSEL3_PLUGIN_DIR . 'public/views/render_carousel.php';
-        return ob_get_clean();
+        require_once CAROUSEL3_PLUGIN_DIR . 'public/views/render_carousel.php';
+        return render_carousel_html($carousel_id, $query, $height, $effect);
     }
 }
