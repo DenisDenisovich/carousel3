@@ -117,7 +117,9 @@ class Sliders {
         if (
             !isset($_POST['carousel3_slide_nonce']) || 
             !wp_verify_nonce(
-                wp_unslash($_POST['carousel3_slide_nonce']),
+                sanitize_text_field(
+                    wp_unslash($_POST['carousel3_slide_nonce'])
+                ),
                 'carousel3_save_data'
             )
         ) {
