@@ -69,7 +69,9 @@ class Sliders {
         );
     }
 
-    public function add_back_button($admin_title, $title) {
+    public function add_back_button1($admin_title, $title) {
+        // Проверяем наличие параметра и nonce для безопасности
+
 
         global $post;
         $screen = get_current_screen();
@@ -93,10 +95,18 @@ class Sliders {
             return;
         }
 
+        // Проверяем nonce для безопасности
+        if (!isset($_GET['_wpnonce']) || !wp_verify_nonce($_GET['_wpnonce'], 'view_parent_' . $parent_id)) {
+            error_log('Invalid nonce for viewing parent carousel. URL: ' . $_SERVER['REQUEST_URI']);
+            error_log('Expected nonce: ' . $_GET['_wpnonce']);
+            return $admin_title;
+        }
+
         $parent_url = add_query_arg(
             [
                 'post'   => $parent_id,
                 'action' => 'edit',
+                '_wpnonce' => wp_create_nonce('view_parent_' . $parent_id)
             ],
             admin_url('post.php')
         );
