@@ -137,7 +137,7 @@ class Sliders {
         }
 
         if (isset($_POST[CAROUSEL3_PLUGIN_KEY . '_animation_type'])) {
-            $animation_type = sanitize_text_field($_POST[CAROUSEL3_PLUGIN_KEY . '_animation_type']);
+            $animation_type = sanitize_text_field( wp_unslash( $_POST[CAROUSEL3_PLUGIN_KEY . '_animation_type'] ) );
             update_post_meta($post_id, CAROUSEL3_PLUGIN_KEY . '_animation_type', $animation_type);
         }
     }
@@ -149,8 +149,8 @@ class Sliders {
 
         $parent_id = 0;
 
-        if (isset($_GET['parent'])) {
-            $parent_id = absint($_GET['parent']);
+        if (isset($_GET['parent'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $parent_id = absint(wp_unslash($_GET['parent'])); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         } elseif (!empty($post->post_parent)) {
             $parent_id = absint($post->post_parent);
         }
@@ -166,6 +166,18 @@ class Sliders {
 
     public function set_parent_for_slide_on_save($data, $postarr) {
         if (!isset($data['post_type']) || $data['post_type'] !== self::POST_TYPE_SLIDE) {
+            return $data;
+        }
+
+        if (
+            !isset($_POST['carousel3_slide_nonce']) || 
+            !wp_verify_nonce(
+                sanitize_text_field(
+                    wp_unslash($_POST['carousel3_slide_nonce'])
+                ),
+                'carousel3_save_data'
+            )
+        ) {
             return $data;
         }
 
