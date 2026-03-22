@@ -76,7 +76,10 @@ function render_carousel_html($carousel_id, $query, $height, $effect) {
 
                         <div class="ani-item description" data-ani="<?php echo esc_attr( $animation_type ); ?>">
                             <h2><?php echo esc_html( $slide->post_title ); ?></h2>
-                            <?php echo wp_kses_post( apply_filters( 'the_content', $slide->post_content ) ); ?>
+                            <?php
+                            $content = do_shortcode( $slide->post_content );
+                            echo wp_kses_post( $content ); 
+                            ?>
                         </div>
                     </div>
                 <?php endif; ?>
