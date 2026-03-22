@@ -2,70 +2,53 @@
 Contributors: Denis SV
 Tags: carousel, slider, swiper, images, responsive, animation
 Requires at least: 5.0
-Tested up to: 6.4
+Tested up to: 6.9
 Stable tag: 1.0.0
 Requires PHP: 7.2
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Плагин для создания карусели с анимированным текстом.
+A plugin for creating carousels with animated text.
 
 == Description ==
 
-Carousel3 — это легкий и гибкий WordPress плагин для создания адаптивных каруселей/слайдеров на базе библиотеки Swiper.js. Плагин предоставляет интуитивный интерфейс администратора для управления каруселями и их слайдами.
+Carousel3 is a lightweight and flexible WordPress plugin for creating responsive carousels/sliders based on the Swiper.js library. The plugin provides an intuitive admin interface for managing carousels and their slides.
 
-Особенности:
+Features:
 
-* Полностью адаптивный дизайн
-* На основе Swiper.js 9.4.1
-* Поддержка различных типов анимации (slide, fade)
-* Опциональные стрелки навигации
-* Опциональные точки навигации (bullets)
-* Кастомная высота карусели
-* Простой шорткод [carousel3 id="1"]
-* Безопасность: проверка nonce, проверка прав доступа
+* Fully responsive design
+* Based on Swiper.js 9.4.1
+* Support for various animation types (slide, fade)
+* Optional navigation arrows
+* Optional navigation dots (bullets)
+* Custom carousel height
+* Simple shortcode [carousel3 id="1"]
+* Security: nonce verification, access rights verification
 
 == Installation ==
 
-1. Скачайте файлы плагина
-2. Загрузите папку `carousel3/` в папку `/wp-content/plugins/`
-3. Активируйте плагин в разделе "Плагины" WordPress
+1. Download the plugin files
+2. Upload the `carousel3/` folder to the `/wp-content/plugins/` folder
+3. Activate the plugin in the “Plugins” section of WordPress
 
 == Frequently Asked Questions ==
 
-= Как создать карусель? =
+= How do I create a carousel? =
 
-1. Перейдите в **Карусели3** в меню администратора WordPress
-2. Нажмите **Добавить новую** карусель
-3. Введите название карусели
-4. Настройте параметры в боксе "Настройки карусели" (справа)
-5. Добавьте слайды, нажав кнопку **Добавить слайд**
-6. Скопируйте шорткод и вставьте на нужную страницу
+1. Go to **Carousels3** in the WordPress admin menu
+2. Click **Add New** carousel
+3. Enter the carousel name
+4. Configure the settings in the “Carousel Settings” box (on the right)
+5. Add slides by clicking the **Add Slide** button
+6. Copy the shortcode and paste it into the desired page
 
-= Какие параметры доступны? =
+= What settings are available? =
 
-* Тип анимации: Скользящий или Исчезновение
-* Показывать стрелки навигации: Включить/отключить боковые стрелки
-* Показывать точки навигации: Включить/отключить точки-буллеты внизу
-* Высота карусели: Задать высоту (например: 300px, 50%, auto)
+* Animation type: Slide or Fade
+* Show navigation arrows: Enable/disable side arrows
+* Show navigation dots: Enable/disable bullet points at the bottom
+* Carousel height: Set the height (e.g., 300px, 50%, auto)
 
-= Как использовать шорткод? =
+= How to use the shortcode? =
 
-Используйте шорткод [carousel3 id="1"], заменив 1 на ID вашей карусели.
-
-== Screenshots ==
-
-1. Интерфейс администратора для управления каруселями
-2. Настройки карусели
-3. Добавление слайдов
-4. Пример карусели на сайте
-
-== Changelog ==
-
-= 1.0.0 =
-* Первая версия плагина
-
-== Upgrade Notice ==
-
-= 1.0.0 =
-Первая версия. Установка и активация.
+Use the shortcode [carousel3 id="1"], replacing 1 with the ID of your
