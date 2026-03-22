@@ -28,8 +28,6 @@ class Sliders {
 
     private function init_hooks() {
         $this->create_menu_slides();
-
-        add_action('admin_title', [$this, 'add_back_button'], 10, 2);
         
         add_action('edit_form_after_title', array($this, 'render_parent_hidden_field'));
         add_filter('wp_insert_post_data', array($this, 'set_parent_for_slide_on_save'), 10, 2);
@@ -38,6 +36,31 @@ class Sliders {
 
         // Сохранение данных
         add_action('save_post_' . self::POST_TYPE_SLIDE, array($this,'save_slide_data'), 10, 2);
+
+        // Отчаяние
+        add_action('edit_form_top', [$this, 'render_back_button']);
+    }
+
+    public function render_back_button($post) {
+        // Проверяем тип поста
+        if ($post->post_type !== self::POST_TYPE_SLIDE) {
+            return;
+        }
+
+        // Получаем ID родителя: из URL (безопасно) или из данных поста
+        $parent_id = filter_input(INPUT_GET, 'parent', FILTER_VALIDATE_INT);
+        if (!$parent_id && !empty($post->post_parent)) {
+            $parent_id = $post->post_parent;
+        }
+
+        if ($parent_id) {
+            $parent_url = admin_url("post.php?post={$parent_id}&action=edit");
+            echo sprintf(
+                '<a href="%s" class="page-title-action" style="margin: 10px 0 20px 0; display: inline-block;">⬅ %s</a>',
+                esc_url($parent_url),
+                esc_html__('Back to carousel', 'carousel3')
+            );
+        }
     }
 
     public function create_menu_slides() {
@@ -69,86 +92,7 @@ class Sliders {
         );
     }
 
-    public function add_back_button1($admin_title, $title) {
-        // Проверяем наличие параметра и nonce для безопасности
-
-
-        global $post;
-        $screen = get_current_screen();
-        if ($screen->id !== self::POST_TYPE_SLIDE) { 
-            return $admin_title;
-        }
-
-        if ($post->post_type !== self::POST_TYPE_SLIDE) {
-            return;
-        }
-
-        $parent_id = 0;
-
-        if (isset($_GET['parent'])) {
-            $parent_id = absint($_GET['parent']);
-        } elseif (!empty($post->post_parent)) {
-            $parent_id = absint($post->post_parent);
-        }
-
-        if ($parent_id <= 0) {
-            return;
-        }
-
-        // Проверяем nonce для безопасности
-        if (!isset($_GET['_wpnonce']) || !wp_verify_nonce($_GET['_wpnonce'], 'view_parent_' . $parent_id)) {
-            error_log('Invalid nonce for viewing parent carousel. URL: ' . $_SERVER['REQUEST_URI']);
-            error_log('Expected nonce: ' . $_GET['_wpnonce']);
-            return $admin_title;
-        }
-
-        $parent_url = add_query_arg(
-            [
-                'post'   => $parent_id,
-                'action' => 'edit',
-                '_wpnonce' => wp_create_nonce('view_parent_' . $parent_id)
-            ],
-            admin_url('post.php')
-        );
-
-        add_action('admin_notices', function() use ($parent_url) {
-            echo '<style>
-                .wp-heading-inline {
-                    display:flex;
-                    align-items:center;
-                    gap:15px;
-                    a .page-title-action {
-                        margin-left: 20px;
-                    }
-                }
-            </style>';
-
-        echo '<script>
-            document.addEventListener("DOMContentLoaded", function(){
-                let heading = document.querySelector("h1.wp-heading-inline");
-                heading = heading || document.querySelector(".wrap h1"); // Альтернативный селектор для старых версий WP
-                layout = heading.closest(".wrap");
-                if (!layout) return;
-
-                const btn = document.createElement("a");
-                btn.style.display = "block";
-                btn.style.width = "300px";
-                btn.style.textAlign = "center";
-                btn.style.backgroundColor = "#0073aa";
-                btn.style.color = "#fff";
-                btn.style.padding = "6px 12px";
-                btn.href = ' . json_encode($parent_url) . ';
-                btn.className = "page-title-action";
-                btn.textContent = " ⬅ " + ' . json_encode(__('Back to carousel', 'carousel3')) . ';
-
-                layout.prepend(btn);
-            });
-            </script>';
-        });
-
-        return $admin_title;
-    }
-
+ 
     public function render_slide_settings_meta_box($post) {
         wp_nonce_field('carousel3_save_data', 'carousel3_slide_nonce');
         if (!isset($post->ID)) {
