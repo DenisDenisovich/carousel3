@@ -72,7 +72,7 @@ class Carousels {
                 echo '<td>' . esc_html($slide->post_title) . '</td>';
                 echo '<td>' . intval($slide->menu_order) . '</td>';
                 echo '<td>';
-                echo '<a href="' . get_edit_post_link($slide->ID) . '">Редактировать</a>';
+                echo '<a href="' . esc_url( get_edit_post_link( $slide->ID ) ) . '">' . esc_html__( 'Редактировать', 'carousel3' ) . '</a>';
                 echo '</td>';
                 echo '<td class="drag-handle" style="cursor:move;">☰</td>';
                 echo '</tr>';

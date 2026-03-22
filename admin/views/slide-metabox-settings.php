@@ -14,10 +14,10 @@ $autoplay_speed = $autoplay_speed ? $autoplay_speed : '3000'; // УДАЛИТЬ 
 ?>
 
 <p>
-    <label for="<?php echo CAROUSEL3_PLUGIN_KEY; ?>_animation_type">
-        <?php _e('Анимация', 'carousel3'); ?>
+    <label for="<?php echo esc_attr( CAROUSEL3_PLUGIN_KEY ); ?>_animation_type">
+        <?php esc_html_e('Анимация', 'carousel3'); ?>
     </label>
-    <select id="<?php echo CAROUSEL3_PLUGIN_KEY; ?>_animation_type" name="<?php echo CAROUSEL3_PLUGIN_KEY; ?>_animation_type">
+    <select id="<?php echo esc_attr( CAROUSEL3_PLUGIN_KEY ); ?>_animation_type" name="<?php echo esc_attr( CAROUSEL3_PLUGIN_KEY ); ?>_animation_type">
         <?php
         $animations = [
             ''                              => __('No animation', 'carousel3'),

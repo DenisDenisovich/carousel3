@@ -4,32 +4,35 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$autoplay = '1';
-$autoplay_speed = '3000';
-$animation_speed = '600';
-$show_arrows = '1';
-$show_dots = '1';
-$show_scrollbar = '0';
-$spaces_between = '0';
-$slides_per_view = '1';
-$slides = max(1, (int)$slides_per_view);
-$vw = round(100 / $slides, 4);
-$sizes = "(max-width: 768px) 100vw, {$vw}vw";
+$c3_conf = [
+    'autoplay'         => '1',
+    'autoplay_speed'   => '3000',
+    'animation_speed'  => '600',
+    'show_arrows'      => '1',
+    'show_dots'        => '1',
+    'show_scrollbar'   => '0',
+    'spaces_between'   => '0',
+    'slides_per_view'  => '1',
+];
+
+$c3_slides_count = max(1, (int)$c3_conf['slides_per_view']);
+$c3_vw           = round(100 / $c3_slides_count, 4);
+$c3_sizes        = "(max-width: 768px) 100vw, {$c3_vw}vw";
 
 ?>
 <div class="carouselwp-carousel slider-container">
     <div class="swiper carousel3" 
         <?php echo ($height !== 'none') ? 'style="height:' . esc_attr($height) . ';"' : ''; ?>
         data-carousel-id="<?php echo esc_attr($carousel_id); ?>"
-        data-autoplay="<?php echo esc_attr($autoplay); ?>"
-        data-autoplay-speed="<?php echo esc_attr($autoplay_speed); ?>"
-        data-animation-speed="<?php echo esc_attr($animation_speed); ?>"
-        data-show-arrows="<?php echo esc_attr($show_arrows); ?>"
-        data-show-dots="<?php echo esc_attr($show_dots); ?>"
-        data-show-scrollbar="<?php echo esc_attr($show_scrollbar); ?>"
+        data-autoplay="<?php echo esc_attr($c3_conf['autoplay']); ?>"
+        data-autoplay-speed="<?php echo esc_attr($c3_conf['autoplay_speed']); ?>"
+        data-animation-speed="<?php echo esc_attr($c3_conf['animation_speed']); ?>"
+        data-show-arrows="<?php echo esc_attr($c3_conf['show_arrows']); ?>"
+        data-show-dots="<?php echo esc_attr($c3_conf['show_dots']); ?>"
+        data-show-scrollbar="<?php echo esc_attr($c3_conf['show_scrollbar']); ?>"
         data-height="<?php echo esc_attr($height); ?>"
-        data-slides-per-view="<?php echo esc_attr($slides_per_view); ?>"
-        data-spaces-between="<?php echo esc_attr($spaces_between); ?>"
+        data-slides-per-view="<?php echo esc_attr($c3_conf['slides_per_view']); ?>"
+        data-spaces-between="<?php echo esc_attr($c3_conf['spaces_between']); ?>"
         data-effect="<?php echo esc_attr($effect); ?>"
     >
         <div class="swiper-wrapper">
@@ -46,7 +49,7 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
                         'large',
                         false,
                         [
-                            'sizes' => $sizes,
+                            'sizes' => $c3_sizes,
                             'class' => 'swiper-image'
                         ]
                     );
@@ -56,7 +59,7 @@ $sizes = "(max-width: 768px) 100vw, {$vw}vw";
 
                     <div class="ani-item description" data-ani="<?php echo esc_attr( $animation_type ); ?>">
                         <h2><?php echo esc_html( $slide->post_title ); ?></h2>
-                        <?php echo apply_filters( 'the_content', $slide->post_content ); ?>
+                        <?php echo wp_kses_post( apply_filters( 'the_content', $slide->post_content ) ); ?>
                     </div>
                 </div>
             <?php endif; ?>

@@ -142,7 +142,7 @@ class Sliders {
     public function render_slide_settings_meta_box($post) {
         wp_nonce_field('carousel3_save_data', 'carousel3_slide_nonce');
         if (!isset($post->ID)) {
-            echo '<p>' . __('Сохраните слайд, чтобы увидеть настройки.', 'carousel3') . '</p>';
+            echo '<p>' . esc_html__('Сохраните слайд, чтобы увидеть настройки.', 'carousel3') . '</p>';
             return;
         }
 

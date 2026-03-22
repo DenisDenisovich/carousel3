@@ -22,7 +22,7 @@ define('CAROUSEL3_PLUGIN_NAME', dirname(CAROUSEL3_PLUGIN_BASENAME));
 define('CAROUSEL3_PLUGIN_KEY', '_' . CAROUSEL3_PLUGIN_NAME);
 
 // Автозагрузка классов плагина
-spl_autoload_register('carousel3_autoload');
+//spl_autoload_register('carousel3_autoload');
 
 function carousel3_autoload($class_name) {
     // работаем только с нашими классами
@@ -62,8 +62,6 @@ function carousel3_autoload($class_name) {
 
 // Инициализация плагина
 function carousel3_init() {
-    // Загрузка текстового домена для перевода
-    load_plugin_textdomain('carousel3', false, dirname(CAROUSEL3_PLUGIN_BASENAME) . '/languages');
 
     // Инициализация основного класса
     Carousel3\Init::get_instance();
