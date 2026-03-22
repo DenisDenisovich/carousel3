@@ -1,5 +1,15 @@
 <?php
-namespace LCE;
+
+namespace Carousel3;
+
+/**
+ * @package Carousel3
+ * @version 1.0.0
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 use Carousel3\Init;
 
