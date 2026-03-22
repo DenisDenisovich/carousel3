@@ -187,7 +187,15 @@ class Carousels {
 
     public function save_carousel_data($post_id, $post) {
         // Проверка nonce
-        if (!isset($_POST['carousel3_nonce']) || !wp_verify_nonce($_POST['carousel3_nonce'], 'carousel3_save_data')) {
+        if (
+            !isset($_POST['carousel3_nonce']) ||
+            !wp_verify_nonce(
+                sanitize_text_field(
+                    wp_unslash($_POST['carousel3_nonce'])
+                ),
+                'carousel3_save_data'
+            )
+        ) {
             return;
         }
 
@@ -214,12 +222,16 @@ class Carousels {
         }
 
         if (isset($_POST[CAROUSEL3_PLUGIN_KEY . '_height'])) {
-            $height = sanitize_text_field($_POST[CAROUSEL3_PLUGIN_KEY . '_height']);
+            $height = sanitize_text_field(
+                wp_unslash($_POST[CAROUSEL3_PLUGIN_KEY . '_height'])
+            );
             update_post_meta($post_id, CAROUSEL3_PLUGIN_KEY . '_height', $height);
         }
 
         if (isset($_POST[CAROUSEL3_PLUGIN_KEY . '_effect'])) {
-            $effect = sanitize_text_field($_POST[CAROUSEL3_PLUGIN_KEY . '_effect']);
+            $effect = sanitize_text_field(
+                wp_unslash($_POST[CAROUSEL3_PLUGIN_KEY . '_effect'])
+            );
             update_post_meta($post_id, CAROUSEL3_PLUGIN_KEY . '_effect', $effect);
         }
     }
