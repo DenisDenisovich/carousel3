@@ -22,7 +22,7 @@ define('CAROUSEL3_PLUGIN_NAME', dirname(CAROUSEL3_PLUGIN_BASENAME));
 define('CAROUSEL3_PLUGIN_KEY', '_' . CAROUSEL3_PLUGIN_NAME);
 
 // Автозагрузка классов плагина
-//spl_autoload_register('carousel3_autoload');
+spl_autoload_register('carousel3_autoload');
 
 function carousel3_autoload($class_name) {
     // работаем только с нашими классами
