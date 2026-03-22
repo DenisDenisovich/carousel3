@@ -103,7 +103,6 @@ class Carousels {
                 : [];
 
             foreach ($raw_order as $item) {
-
                 if (!is_array($item)) {
                     continue;
                 }
@@ -121,7 +120,6 @@ class Carousels {
                 ]);
             }
         }
-
         wp_send_json_success('Порядок обновлен');
     }
 
