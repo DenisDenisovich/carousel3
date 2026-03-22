@@ -109,7 +109,8 @@ class Sliders {
         $animation_type = $animation_type ? $animation_type : 'none';
 
         // Выводим настройки слайда
-        include CAROUSEL3_PLUGIN_DIR . 'admin/views/slide-metabox-settings.php';
+        require_once CAROUSEL3_PLUGIN_DIR . 'admin/views/slide-metabox-settings.php';
+        echo wp_kses_post(render_slide_metabox_settings($animation_type));
     }
 
     public function save_slide_data($post_id, $post) {
