@@ -1,6 +1,6 @@
 === Carousel3 ===
 Contributors: Denis SV
-Tags: carousel, slider, swiper, images, responsive, animation
+Tags: carousel, slider, swiper, images, animation
 Requires at least: 5.0
 Tested up to: 6.9
 Stable tag: 1.0.0
