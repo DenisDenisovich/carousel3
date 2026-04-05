@@ -4,7 +4,7 @@
  * Description: Плагин для создания карусели с анимированным текстом.
  * Version: 1.0.0
  * License: GPL2
- * Text Domain: carousel3
+ * Text Domain: denissv-animated-text-slider
  * Domain Path: /languages
  */
 
