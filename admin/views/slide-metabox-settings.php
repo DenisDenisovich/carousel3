@@ -18,25 +18,25 @@ if (!defined('ABSPATH')) {
  */
 function render_slide_metabox_settings($animation_type) {
     $animations = [
-        ''                              => __('No animation', 'carousel3'),
-        'animate__fadeIn'               => __('Fade In', 'carousel3'),
-        'animate__fadeInUp'             => __('Fade In Up', 'carousel3'),
-        'animate__fadeInDown'           => __('Fade In Down', 'carousel3'),
-        'animate__bounceIn'             => __('Bounce In', 'carousel3'),
-        'animate__zoomIn'               => __('Zoom In', 'carousel3'),
-        'animate__slideInLeft'          => __('Slide In Left', 'carousel3'),
-        'animate__slideInRight'         => __('Slide In Right', 'carousel3'),
-        'animate__backInDown'           => __('Back In Down', 'carousel3'),
-        'animate__flipInX'              => __('Flip In X', 'carousel3'),
-        'animate__lightSpeedInRight'    => __('Light Speed In', 'carousel3'),
-        'animate__rollIn'               => __('Roll In', 'carousel3'),
+        ''                              => __('No animation', 'denissv-animated-text-slider'),
+        'animate__fadeIn'               => __('Fade In', 'denissv-animated-text-slider'),
+        'animate__fadeInUp'             => __('Fade In Up', 'denissv-animated-text-slider'),
+        'animate__fadeInDown'           => __('Fade In Down', 'denissv-animated-text-slider'),
+        'animate__bounceIn'             => __('Bounce In', 'denissv-animated-text-slider'),
+        'animate__zoomIn'               => __('Zoom In', 'denissv-animated-text-slider'),
+        'animate__slideInLeft'          => __('Slide In Left', 'denissv-animated-text-slider'),
+        'animate__slideInRight'         => __('Slide In Right', 'denissv-animated-text-slider'),
+        'animate__backInDown'           => __('Back In Down', 'denissv-animated-text-slider'),
+        'animate__flipInX'              => __('Flip In X', 'denissv-animated-text-slider'),
+        'animate__lightSpeedInRight'    => __('Light Speed In', 'denissv-animated-text-slider'),
+        'animate__rollIn'               => __('Roll In', 'denissv-animated-text-slider'),
     ];
 
     ob_start();
     ?>
     <p>
         <label for="<?php echo esc_attr( DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY ); ?>_animation_type">
-            <?php esc_html_e('Анимация', 'carousel3'); ?>
+            <?php esc_html_e('Анимация', 'denissv-animated-text-slider'); ?>
         </label>
         <select id="<?php echo esc_attr( DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY ); ?>_animation_type" name="<?php echo esc_attr( DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY ); ?>_animation_type">
             <?php foreach ( $animations as $value => $label ) : ?>

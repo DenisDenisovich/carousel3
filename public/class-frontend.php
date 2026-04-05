@@ -42,7 +42,7 @@ class Frontend {
      */
     private function init_hooks() {
         // Регистрация шорткода
-        add_shortcode('carousel3', array($this, 'carousel_shortcode'));
+        add_shortcode('denissv-animated-text-slider', array($this, 'carousel_shortcode'));
     }
 
     /**
@@ -60,13 +60,13 @@ class Frontend {
         $carousel_id = absint($atts['id']);
 
         if (!$carousel_id) {
-            return '<p>' . __('Укажите ID карусели', 'carousel3') . '</p>';
+            return '<p>' . __('Укажите ID карусели', 'denissv-animated-text-slider') . '</p>';
         }
 
         $carousel = get_post($carousel_id);
 
         if (!$carousel || $carousel->post_type !== DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME) {
-            return '<p>' . __('Карусель не найдена', 'carousel3') . '</p>';
+            return '<p>' . __('Карусель не найдена', 'denissv-animated-text-slider') . '</p>';
         }
 
         $query = new \WP_Query([

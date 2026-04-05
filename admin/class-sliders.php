@@ -58,7 +58,7 @@ class Sliders {
             echo sprintf(
                 '<a href="%s" class="page-title-action" style="margin: 10px 0 20px 0; display: inline-block;">⬅ %s</a>',
                 esc_url($parent_url),
-                esc_html__('Back to carousel', 'carousel3')
+                esc_html__('Back to carousel', 'denissv-animated-text-slider')
             );
         }
     }
@@ -84,7 +84,7 @@ class Sliders {
     public function add_meta_boxes() {
         add_meta_box(
             DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME . '_slide_settings',
-            __('Настройки слайда', 'carousel3'),
+            __('Настройки слайда', 'denissv-animated-text-slider'),
             array($this, 'render_slide_settings_meta_box'),
             self::POST_TYPE_SLIDE,
             'side',
@@ -96,7 +96,7 @@ class Sliders {
     public function render_slide_settings_meta_box($post) {
         wp_nonce_field('carousel3_save_data', 'carousel3_slide_nonce');
         if (!isset($post->ID)) {
-            echo '<p>' . esc_html__('Сохраните слайд, чтобы увидеть настройки.', 'carousel3') . '</p>';
+            echo '<p>' . esc_html__('Сохраните слайд, чтобы увидеть настройки.', 'denissv-animated-text-slider') . '</p>';
             return;
         }
 

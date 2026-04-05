@@ -72,7 +72,7 @@ class Carousels {
                 echo '<td>' . esc_html($slide->post_title) . '</td>';
                 echo '<td>' . intval($slide->menu_order) . '</td>';
                 echo '<td>';
-                echo '<a href="' . esc_url( get_edit_post_link( $slide->ID ) ) . '">' . esc_html__( 'Редактировать', 'carousel3' ) . '</a>';
+                echo '<a href="' . esc_url( get_edit_post_link( $slide->ID ) ) . '">' . esc_html__( 'Редактировать', 'denissv-animated-text-slider' ) . '</a>';
                 echo '</td>';
                 echo '<td class="drag-handle" style="cursor:move;">☰</td>';
                 echo '</tr>';
@@ -155,7 +155,7 @@ class Carousels {
 
         add_meta_box(
             DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_settings',
-            __('Настройки карусели', 'carousel3'),
+            __('Настройки карусели', 'denissv-animated-text-slider'),
             array($this, 'render_settings_metabox'),
             DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME,
             'side',
