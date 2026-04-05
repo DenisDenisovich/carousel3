@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Carousel3
+ * Plugin Name: Denissv Animated Text Slider
  * Description: Плагин для создания карусели с анимированным текстом.
  * Version: 1.0.0
  * License: GPL2
@@ -14,12 +14,12 @@ if (!defined('ABSPATH')) {
 }
 
 // Определение констант плагина
-define('CAROUSEL3_VERSION', '1.0.0');
-define('CAROUSEL3_PLUGIN_DIR', plugin_dir_path(__FILE__));
-define('CAROUSEL3_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('CAROUSEL3_PLUGIN_BASENAME', plugin_basename(__FILE__));
-define('CAROUSEL3_PLUGIN_NAME', dirname(CAROUSEL3_PLUGIN_BASENAME));
-define('CAROUSEL3_PLUGIN_KEY', '_' . CAROUSEL3_PLUGIN_NAME);
+define('DENISSV_ANIMATED_TEXT_SLIDER_VERSION', '1.0.0');
+define('DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_BASENAME', plugin_basename(__FILE__));
+define('DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME', dirname(DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_BASENAME));
+define('DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY', '_' . DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME);
 
 // Автозагрузка классов плагина
 spl_autoload_register('carousel3_autoload');
@@ -50,7 +50,7 @@ function carousel3_autoload($class_name) {
 
     foreach ($dirs as $dir) {
         foreach ($candidates as $candidate) {
-            $file = CAROUSEL3_PLUGIN_DIR . $dir . 'class-' . $candidate . '.php';
+            $file = DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_DIR . $dir . 'class-' . $candidate . '.php';
 
             if (file_exists($file)) {
                 require_once $file;

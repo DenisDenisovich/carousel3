@@ -49,10 +49,10 @@ class Admin {
             return;
         }
 
-        wp_enqueue_style(CAROUSEL3_PLUGIN_NAME . '-css-admin', CAROUSEL3_PLUGIN_URL . 'admin/css/admin.css', array(), CAROUSEL3_VERSION);
+        wp_enqueue_style(DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME . '-css-admin', DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_URL . 'admin/css/admin.css', array(), DENISSV_ANIMATED_TEXT_SLIDER_VERSION);
 
-        wp_enqueue_script(CAROUSEL3_PLUGIN_NAME . '-js-admin', CAROUSEL3_PLUGIN_URL . 'admin/js/admin.js', array('jquery'), CAROUSEL3_VERSION, true);
-        wp_localize_script(CAROUSEL3_PLUGIN_NAME . '-js-admin', 'carousel3TableSort', [
+        wp_enqueue_script(DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME . '-js-admin', DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_URL . 'admin/js/admin.js', array('jquery'), DENISSV_ANIMATED_TEXT_SLIDER_VERSION, true);
+        wp_localize_script(DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME . '-js-admin', 'carousel3TableSort', [
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce'   => wp_create_nonce('carousel3_sort_slides_nonce'),
         ]);

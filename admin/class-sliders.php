@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 }
 
 class Sliders {
-    private const POST_TYPE_SLIDE = CAROUSEL3_PLUGIN_NAME . '_slides';
+    private const POST_TYPE_SLIDE = DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME . '_slides';
 
     private static $instance = null;
 
@@ -83,7 +83,7 @@ class Sliders {
 
     public function add_meta_boxes() {
         add_meta_box(
-            CAROUSEL3_PLUGIN_NAME . '_slide_settings',
+            DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME . '_slide_settings',
             __('Настройки слайда', 'carousel3'),
             array($this, 'render_slide_settings_meta_box'),
             self::POST_TYPE_SLIDE,
@@ -102,14 +102,14 @@ class Sliders {
 
         $animation_type = get_post_meta(
             $post->ID,
-            CAROUSEL3_PLUGIN_KEY . '_animation_type',
+            DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_animation_type',
             true
         );
 
         $animation_type = $animation_type ? $animation_type : 'none';
 
         // Выводим настройки слайда
-        require_once CAROUSEL3_PLUGIN_DIR . 'admin/views/slide-metabox-settings.php';
+        require_once DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_DIR . 'admin/views/slide-metabox-settings.php';
         echo wp_kses(render_slide_metabox_settings($animation_type), [
             'label' => [
                 'for' => [],
@@ -151,9 +151,9 @@ class Sliders {
             return;
         }
 
-        if (isset($_POST[CAROUSEL3_PLUGIN_KEY . '_animation_type'])) {
-            $animation_type = sanitize_text_field( wp_unslash( $_POST[CAROUSEL3_PLUGIN_KEY . '_animation_type'] ) );
-            update_post_meta($post_id, CAROUSEL3_PLUGIN_KEY . '_animation_type', $animation_type);
+        if (isset($_POST[DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_animation_type'])) {
+            $animation_type = sanitize_text_field( wp_unslash( $_POST[DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_animation_type'] ) );
+            update_post_meta($post_id, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_animation_type', $animation_type);
         }
     }
 

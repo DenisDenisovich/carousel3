@@ -54,7 +54,7 @@ function render_carousel_html($carousel_id, $query, $height, $effect) {
         >
             <div class="swiper-wrapper">
                 <?php foreach ($query->posts as $slide) : 
-                    $animation_type = get_post_meta($slide->ID, CAROUSEL3_PLUGIN_KEY . '_animation_type', true);
+                    $animation_type = get_post_meta($slide->ID, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_animation_type', true);
                     $animation_type = $animation_type ? $animation_type : 'animate__fadeInUp';
 
                     $slide_id = (int) $slide->ID;

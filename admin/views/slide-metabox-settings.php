@@ -35,10 +35,10 @@ function render_slide_metabox_settings($animation_type) {
     ob_start();
     ?>
     <p>
-        <label for="<?php echo esc_attr( CAROUSEL3_PLUGIN_KEY ); ?>_animation_type">
+        <label for="<?php echo esc_attr( DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY ); ?>_animation_type">
             <?php esc_html_e('Анимация', 'carousel3'); ?>
         </label>
-        <select id="<?php echo esc_attr( CAROUSEL3_PLUGIN_KEY ); ?>_animation_type" name="<?php echo esc_attr( CAROUSEL3_PLUGIN_KEY ); ?>_animation_type">
+        <select id="<?php echo esc_attr( DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY ); ?>_animation_type" name="<?php echo esc_attr( DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY ); ?>_animation_type">
             <?php foreach ( $animations as $value => $label ) : ?>
                 <option value="<?php echo esc_attr( $value ); ?>" <?php selected( $animation_type, $value ); ?>>
                     <?php echo esc_html( $label ); ?>

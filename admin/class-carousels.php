@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
  * @author Денис
  */
 class Carousels {
-    private const POST_TYPE_SLIDE = CAROUSEL3_PLUGIN_NAME . '_slides';
+    private const POST_TYPE_SLIDE = DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME . '_slides';
     private static $instance = null;
 
     public static function get_instance() {
@@ -45,7 +45,7 @@ class Carousels {
         add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
 
         // Сохранение данных
-        add_action('save_post_' . CAROUSEL3_PLUGIN_NAME, array($this, 'save_carousel_data'), 10, 2);
+        add_action('save_post_' . DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME, array($this, 'save_carousel_data'), 10, 2);
     }
     
     public function create_menu_carousel() {
@@ -124,7 +124,7 @@ class Carousels {
     }
 
     public function menu_carousel() {
-        register_post_type(CAROUSEL3_PLUGIN_NAME, [
+        register_post_type(DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME, [
             'labels' => [
                 'name' => 'Карусели3',
                 'singular_name' => 'Карусель3',
@@ -148,16 +148,16 @@ class Carousels {
             'carousel_slides_meta_box',
             'Слайды карусели',
             array($this, 'render_carousel_slides'),
-            CAROUSEL3_PLUGIN_NAME,
+            DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME,
             'normal',
             'high'
         );
 
         add_meta_box(
-            CAROUSEL3_PLUGIN_KEY . '_settings',
+            DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_settings',
             __('Настройки карусели', 'carousel3'),
             array($this, 'render_settings_metabox'),
-            CAROUSEL3_PLUGIN_NAME,
+            DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME,
             'side',
             'default'
         );
@@ -167,14 +167,14 @@ class Carousels {
         wp_nonce_field('carousel3_save_data', 'carousel3_nonce');
         $shortcode = '';
         if (isset($post) && isset($post->ID) && $post->ID) {
-            $shortcode = sprintf('[%s id="%d"]', CAROUSEL3_PLUGIN_NAME, (int) $post->ID);
+            $shortcode = sprintf('[%s id="%d"]', DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME, (int) $post->ID);
         }
 
         $carousel_id = $post->ID;
-        $show_arrows = get_post_meta($post->ID, CAROUSEL3_PLUGIN_KEY . '_show_arrows', true);
-        $show_dots = get_post_meta($post->ID, CAROUSEL3_PLUGIN_KEY . '_show_dots', true);
-        $height = get_post_meta($post->ID, CAROUSEL3_PLUGIN_KEY . '_height', true);
-        $effect = get_post_meta($post->ID, CAROUSEL3_PLUGIN_KEY . '_effect', true);
+        $show_arrows = get_post_meta($post->ID, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_show_arrows', true);
+        $show_dots = get_post_meta($post->ID, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_show_dots', true);
+        $height = get_post_meta($post->ID, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_height', true);
+        $effect = get_post_meta($post->ID, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_effect', true);
 
         // Значения по умолчанию
         $show_arrows = $show_arrows !== '' ? $show_arrows : '1';
@@ -182,7 +182,7 @@ class Carousels {
         $height = $height ? $height : 'none';
         $effect = $effect ? $effect : 'slide';
 
-        include CAROUSEL3_PLUGIN_DIR . 'admin/views/carousel-metabox-settings.php';
+        include DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_DIR . 'admin/views/carousel-metabox-settings.php';
     }
 
     public function save_carousel_data($post_id, $post) {
@@ -209,30 +209,30 @@ class Carousels {
             return;
         }
 
-        if (isset($_POST[CAROUSEL3_PLUGIN_KEY . '_show_arrows'])) {
-            update_post_meta($post_id, CAROUSEL3_PLUGIN_KEY . '_show_arrows', '1');
+        if (isset($_POST[DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_show_arrows'])) {
+            update_post_meta($post_id, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_show_arrows', '1');
         } else {
-            update_post_meta($post_id, CAROUSEL3_PLUGIN_KEY . '_show_arrows', '0');
+            update_post_meta($post_id, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_show_arrows', '0');
         }
 
-        if (isset($_POST[CAROUSEL3_PLUGIN_KEY . '_show_dots'])) {
-            update_post_meta($post_id, CAROUSEL3_PLUGIN_KEY . '_show_dots', '1');
+        if (isset($_POST[DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_show_dots'])) {
+            update_post_meta($post_id, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_show_dots', '1');
         } else {
-            update_post_meta($post_id, CAROUSEL3_PLUGIN_KEY . '_show_dots', '0');
+            update_post_meta($post_id, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_show_dots', '0');
         }
 
-        if (isset($_POST[CAROUSEL3_PLUGIN_KEY . '_height'])) {
+        if (isset($_POST[DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_height'])) {
             $height = sanitize_text_field(
-                wp_unslash($_POST[CAROUSEL3_PLUGIN_KEY . '_height'])
+                wp_unslash($_POST[DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_height'])
             );
-            update_post_meta($post_id, CAROUSEL3_PLUGIN_KEY . '_height', $height);
+            update_post_meta($post_id, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_height', $height);
         }
 
-        if (isset($_POST[CAROUSEL3_PLUGIN_KEY . '_effect'])) {
+        if (isset($_POST[DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_effect'])) {
             $effect = sanitize_text_field(
-                wp_unslash($_POST[CAROUSEL3_PLUGIN_KEY . '_effect'])
+                wp_unslash($_POST[DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_effect'])
             );
-            update_post_meta($post_id, CAROUSEL3_PLUGIN_KEY . '_effect', $effect);
+            update_post_meta($post_id, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_effect', $effect);
         }
     }
 }

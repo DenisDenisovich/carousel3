@@ -54,7 +54,7 @@ class Frontend {
     public function carousel_shortcode($atts) {
         $atts = shortcode_atts(array(
             'id' => 0,
-        ), $atts, CAROUSEL3_PLUGIN_NAME);
+        ), $atts, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME);
         
         
         $carousel_id = absint($atts['id']);
@@ -65,12 +65,12 @@ class Frontend {
 
         $carousel = get_post($carousel_id);
 
-        if (!$carousel || $carousel->post_type !== CAROUSEL3_PLUGIN_NAME) {
+        if (!$carousel || $carousel->post_type !== DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME) {
             return '<p>' . __('Карусель не найдена', 'carousel3') . '</p>';
         }
 
         $query = new \WP_Query([
-            'post_type'      => CAROUSEL3_PLUGIN_NAME . '_slides',
+            'post_type'      => DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_NAME . '_slides',
             'post_parent'    => $carousel_id,
             'posts_per_page' => -1,
             'orderby'     => 'menu_order',
@@ -93,10 +93,10 @@ class Frontend {
         $slides = $query->posts;
         
         // Получение настроек карусели
-        $show_arrows = get_post_meta($carousel->ID, CAROUSEL3_PLUGIN_KEY . '_show_arrows', true);
-        $show_dots = get_post_meta($carousel->ID, CAROUSEL3_PLUGIN_KEY . '_show_dots', true);
-        $height = get_post_meta($carousel->ID, CAROUSEL3_PLUGIN_KEY . '_height', true);
-        $effect = get_post_meta($carousel->ID, CAROUSEL3_PLUGIN_KEY . '_effect', true);
+        $show_arrows = get_post_meta($carousel->ID, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_show_arrows', true);
+        $show_dots = get_post_meta($carousel->ID, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_show_dots', true);
+        $height = get_post_meta($carousel->ID, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_height', true);
+        $effect = get_post_meta($carousel->ID, DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_KEY . '_effect', true);
 
         // Значения по умолчанию
         $show_arrows = $show_arrows !== '' ? $show_arrows : '1';
@@ -108,38 +108,38 @@ class Frontend {
         // Стили карусели плагина
         wp_enqueue_style(
             'carousel3-swiper-css',
-            CAROUSEL3_PLUGIN_URL . 'public/assets/styles/swiper-bundle.min.css',
+            DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_URL . 'public/assets/styles/swiper-bundle.min.css',
             array(),
-            CAROUSEL3_VERSION
+            DENISSV_ANIMATED_TEXT_SLIDER_VERSION
         );
         wp_enqueue_style(
             'carousel3-swiper-custom-css',
-            CAROUSEL3_PLUGIN_URL . 'public/assets/styles/swiper-custom.css',
+            DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_URL . 'public/assets/styles/swiper-custom.css',
             array('carousel3-swiper-css'),
-            CAROUSEL3_VERSION
+            DENISSV_ANIMATED_TEXT_SLIDER_VERSION
         );
         wp_enqueue_style(
             'carousel3-animate-css',
-            CAROUSEL3_PLUGIN_URL . 'public/assets/styles/animate.css',
+            DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_URL . 'public/assets/styles/animate.css',
             array('carousel3-swiper-custom-css'),
-            CAROUSEL3_VERSION
+            DENISSV_ANIMATED_TEXT_SLIDER_VERSION
         );
         wp_enqueue_script(
             'swcarousel-swiper-js',
-            CAROUSEL3_PLUGIN_URL . 'public/assets/js/swiper-bundle.min.js',
+            DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_URL . 'public/assets/js/swiper-bundle.min.js',
             array(),
             '9.4.1',
             true
         );
         wp_enqueue_script(
             'swcarousel-slider-config',
-            CAROUSEL3_PLUGIN_URL . 'public/assets/js/swiper-config.js',
+            DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_URL . 'public/assets/js/swiper-config.js',
             array('swcarousel-swiper-js'),
-            CAROUSEL3_VERSION,
+            DENISSV_ANIMATED_TEXT_SLIDER_VERSION,
             true
         );
         
-        require_once CAROUSEL3_PLUGIN_DIR . 'public/views/render_carousel.php';
+        require_once DENISSV_ANIMATED_TEXT_SLIDER_PLUGIN_DIR . 'public/views/render_carousel.php';
         return render_carousel_html($carousel_id, $query, $height, $effect);
     }
 }
